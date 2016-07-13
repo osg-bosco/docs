@@ -1,0 +1,69 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "BOSCO\n\n\nIntroduction\n\n\nBOSCO is a job submission manager designed to help researchers manage\nlarge numbers (~1000s) of job submissions to the different resources\nthat they can access on a campus (initially a PBS cluster running\nLinux).\n\n\nIf you find any problems or need\nhelp installing or running BoSCO, please email\n\nbosco-discuss@opensciencegrid.org\n.\n\n\nBosco offers the following capabilities:\n\n\n\n\nJobs are automatically resubmitted when they fail. The researcher\n    does not need to babysit their jobs.\n\n\nJob submissions can be throttled to meet batch scheduler\n    settings (e.g. only 10 jobs running concurrently). The researcher\n    does not need to make multiple submissions. BOSCO handles that\n    for them.\n\n\nBOSCO is designed to be flexible and allows jobs to be submitted to\n    multiple clusters, with different job schedulers (e.g. PBS, LSF,\n    HTCondor, SGE, and SLURM).\n\n\n\n\nThe primary advantage for the researcher is that they only need to learn\none job scheduler environment even if the clusters utilize different\nnative environments.\n\n\nBOSCO definitions, versions and documents\n\n\n\n\n\n\n\nThe BOSCO submit node is the host where BOSCO is installed and where\nuser's login to submit jobs via BOSCO. \n\n\nThe multiple clusters added to\nBOSCO (i.e. where the user's can submit jobs via BOSCO) are referred as\nBOSCO resources. \n\n\nBOSCO resources can be a traditional cluster or a pool\nof resources connected via HTCondor, another BOSCO installation, Grid,\nor some other technology. Anyway all BOSCO resources have a submit node\n(where you would login to submit jobs if you had no BOSCO) and worker\nnodes (where the jobs run).\n\n\n\n\nThis page explains how to use BOSCO. Before using BOSCO you, or someone\nfor you, will have to install a version of BOSCO and add at least one\nBOSCO resource. Adding, testing and removing BOSCO resources is part of\nthe BOSCO configuration.\n\n\nBOSCO Single User\n allows a researcher to install BOSCO\nin her/his (non-privileged) account, to configure it and to use it. If\nyou plan (at least initially) to connect a single cluster (BOSCO Single\nUser Single Cluster) then use the \nBOSCO Quick Start\nGuide\n. Otherwise, to install and configure BOSCO\nSingle-user read \nBOSCO Single User Installation\n.\n\n\nBOSCO Multi User\n is installed, configured and started\non a host by the system administrator (root) and is available to all the\nusers on the host. To install and configure BOSCO Multi-user read \nBOSCO\nMulti User Installation\n.\n\n\nLater in this document we'll assume that BOSCO has been already\ninstalled and configured correctly. For the installation or to change\nthe configuration (e.g. to add or remove BOSCO resources) please check\nthe other documents: \nBOSCO Single User Installation\n and\n\nBOSCO Multi User Installation\n.\n\n\nRequirements\n\n\nThere are specific requirements for the BOSCO resources that are\nspecified in the install documents.\n\n\nTo use BOSCO you need a BOSCO submit host with BOSCO installed and\nconfigured correctly. All requirements for the BOSCO submit host and the\nBOSCO resources, as well as the requirements to include BOSCO in a more\ncomplex Condor setup, are described in the install documents.\n\n\nHow to Install\n\n\nEither you or a system administrator for you will have to install and\nsetup BOSCO. The installation consists in downloading and installing the\nBOSCO software. The setup consists in managing which clusters are\nincluded in the BOSCO pool and will execute your jobs; it includes all\nthe operations performed using the \nbosco_cluster\n command. The\ninstallation and setup are covered in two separate documents:\n\n\n\n\nTo install and setup BOSCO so that it is used and configured from a\n    single user account please refer to \nBosco Installation\n\n\nTo install and setup BOSCO so that it is configured from a single\n    user account but it can be used by all the accounts on the host\n    please refer to \nBosco Multiuser\n\n\n\n\nHow to Use\n\n\nIn order to use BOSCO and submit a job:\n\n\n\n\nBOSCO must be installed\n\n\nBOSCO must be running (it must have been started)\n\n\nAt least one cluster must have been added to BOSCO\n\n\nYou must setup the environment\n\n\n\n\nStarting/Stopping and Configuring BOSCO Each time I mention\n\n\n\"you\" in this section refers either to you or to a system administrator\nthat acts on your behalf, probably the same person that installed BOSCO.\n\n\nBOSCO has some persistent services that must be running. You'll have to\nstart it at the beginning and probably after each reboot of your host.\nYou should stop BOSCO before an upgrade and possibly before a shutdown\nof your host. If you will not use BOSCO anymore, uninstall will remove\nit from your system.\n\n\nYou need to add to BOSCO all the clusters of which you like to use the\nresources. In order to run jobs you need at least one.\n\n\nPlease refer to the \nBosco Installation\n or \nBosco Multiuser\n documents for\noperations including:\n\n\n\n\nstarting BOSCO\n\n\nstopping BOSCO\n\n\nupdating BOSCO\n\n\nuninstalling BOSCO\n\n\nadding one or more clusters to BOSCO\n\n\n\n\nSetup\n\n\nSetup the environment before using Since BOSCO is not installed in\nthe system path. An environment file must be sourced all the times you\nuse BOSCO (start/stop/job submission or query, anything):\n\n\nsource ~/bosco/bosco_setenv\n\n\n\n\n\n\n\nTroubleshooting\n\n\nUseful Configuration and Log Files\n\n\nBOSCO underneath is using\nCondor. You can find all the Condor log files in\n\n~/bosco/local.HOSTNAME/log\n\n\nKnown Issues\n\n\n\n\nMake sure that BOSCO is running. BOSCO may not survive after you\nlog out. When you log back in after sourcing the setup\n(\nsource ~/bosco/bosco_setenv\n), if you are using BOSCO single-user you\nshould start BOSCO (\nbosco_start\n) specially if the command \ncondor_q\n\nis failing. More details about starting BOSCO are in BoscoInstall and\nBoscoMultiUser\n\n\n\n\nGet Help/Support\n\n\nTo get assistance you can send an email to", 
+            "title": "Introduction"
+        }, 
+        {
+            "location": "/#bosco", 
+            "text": "", 
+            "title": "BOSCO"
+        }, 
+        {
+            "location": "/#introduction", 
+            "text": "BOSCO is a job submission manager designed to help researchers manage\nlarge numbers (~1000s) of job submissions to the different resources\nthat they can access on a campus (initially a PBS cluster running\nLinux).  If you find any problems or need\nhelp installing or running BoSCO, please email bosco-discuss@opensciencegrid.org .  Bosco offers the following capabilities:   Jobs are automatically resubmitted when they fail. The researcher\n    does not need to babysit their jobs.  Job submissions can be throttled to meet batch scheduler\n    settings (e.g. only 10 jobs running concurrently). The researcher\n    does not need to make multiple submissions. BOSCO handles that\n    for them.  BOSCO is designed to be flexible and allows jobs to be submitted to\n    multiple clusters, with different job schedulers (e.g. PBS, LSF,\n    HTCondor, SGE, and SLURM).   The primary advantage for the researcher is that they only need to learn\none job scheduler environment even if the clusters utilize different\nnative environments.", 
+            "title": "Introduction"
+        }, 
+        {
+            "location": "/#bosco-definitions-versions-and-documents", 
+            "text": "The BOSCO submit node is the host where BOSCO is installed and where\nuser's login to submit jobs via BOSCO.   The multiple clusters added to\nBOSCO (i.e. where the user's can submit jobs via BOSCO) are referred as\nBOSCO resources.   BOSCO resources can be a traditional cluster or a pool\nof resources connected via HTCondor, another BOSCO installation, Grid,\nor some other technology. Anyway all BOSCO resources have a submit node\n(where you would login to submit jobs if you had no BOSCO) and worker\nnodes (where the jobs run).   This page explains how to use BOSCO. Before using BOSCO you, or someone\nfor you, will have to install a version of BOSCO and add at least one\nBOSCO resource. Adding, testing and removing BOSCO resources is part of\nthe BOSCO configuration.  BOSCO Single User  allows a researcher to install BOSCO\nin her/his (non-privileged) account, to configure it and to use it. If\nyou plan (at least initially) to connect a single cluster (BOSCO Single\nUser Single Cluster) then use the  BOSCO Quick Start\nGuide . Otherwise, to install and configure BOSCO\nSingle-user read  BOSCO Single User Installation .  BOSCO Multi User  is installed, configured and started\non a host by the system administrator (root) and is available to all the\nusers on the host. To install and configure BOSCO Multi-user read  BOSCO\nMulti User Installation .  Later in this document we'll assume that BOSCO has been already\ninstalled and configured correctly. For the installation or to change\nthe configuration (e.g. to add or remove BOSCO resources) please check\nthe other documents:  BOSCO Single User Installation  and BOSCO Multi User Installation .", 
+            "title": "BOSCO definitions, versions and documents"
+        }, 
+        {
+            "location": "/#requirements", 
+            "text": "There are specific requirements for the BOSCO resources that are\nspecified in the install documents.  To use BOSCO you need a BOSCO submit host with BOSCO installed and\nconfigured correctly. All requirements for the BOSCO submit host and the\nBOSCO resources, as well as the requirements to include BOSCO in a more\ncomplex Condor setup, are described in the install documents.", 
+            "title": "Requirements"
+        }, 
+        {
+            "location": "/#how-to-install", 
+            "text": "Either you or a system administrator for you will have to install and\nsetup BOSCO. The installation consists in downloading and installing the\nBOSCO software. The setup consists in managing which clusters are\nincluded in the BOSCO pool and will execute your jobs; it includes all\nthe operations performed using the  bosco_cluster  command. The\ninstallation and setup are covered in two separate documents:   To install and setup BOSCO so that it is used and configured from a\n    single user account please refer to  Bosco Installation  To install and setup BOSCO so that it is configured from a single\n    user account but it can be used by all the accounts on the host\n    please refer to  Bosco Multiuser", 
+            "title": "How to Install"
+        }, 
+        {
+            "location": "/#how-to-use", 
+            "text": "In order to use BOSCO and submit a job:   BOSCO must be installed  BOSCO must be running (it must have been started)  At least one cluster must have been added to BOSCO  You must setup the environment", 
+            "title": "How to Use"
+        }, 
+        {
+            "location": "/#startingstopping-and-configuring-bosco-each-time-i-mention", 
+            "text": "\"you\" in this section refers either to you or to a system administrator\nthat acts on your behalf, probably the same person that installed BOSCO.  BOSCO has some persistent services that must be running. You'll have to\nstart it at the beginning and probably after each reboot of your host.\nYou should stop BOSCO before an upgrade and possibly before a shutdown\nof your host. If you will not use BOSCO anymore, uninstall will remove\nit from your system.  You need to add to BOSCO all the clusters of which you like to use the\nresources. In order to run jobs you need at least one.  Please refer to the  Bosco Installation  or  Bosco Multiuser  documents for\noperations including:   starting BOSCO  stopping BOSCO  updating BOSCO  uninstalling BOSCO  adding one or more clusters to BOSCO", 
+            "title": "Starting/Stopping and Configuring BOSCO Each time I mention"
+        }, 
+        {
+            "location": "/#setup", 
+            "text": "Setup the environment before using Since BOSCO is not installed in\nthe system path. An environment file must be sourced all the times you\nuse BOSCO (start/stop/job submission or query, anything):  source ~/bosco/bosco_setenv", 
+            "title": "Setup"
+        }, 
+        {
+            "location": "/#troubleshooting", 
+            "text": "", 
+            "title": "Troubleshooting"
+        }, 
+        {
+            "location": "/#useful-configuration-and-log-files", 
+            "text": "BOSCO underneath is using\nCondor. You can find all the Condor log files in ~/bosco/local.HOSTNAME/log", 
+            "title": "Useful Configuration and Log Files"
+        }, 
+        {
+            "location": "/#known-issues", 
+            "text": "Make sure that BOSCO is running. BOSCO may not survive after you\nlog out. When you log back in after sourcing the setup\n( source ~/bosco/bosco_setenv ), if you are using BOSCO single-user you\nshould start BOSCO ( bosco_start ) specially if the command  condor_q \nis failing. More details about starting BOSCO are in BoscoInstall and\nBoscoMultiUser", 
+            "title": "Known Issues"
+        }, 
+        {
+            "location": "/#get-helpsupport", 
+            "text": "To get assistance you can send an email to", 
+            "title": "Get Help/Support"
+        }
+    ]
+}

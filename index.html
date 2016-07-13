@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>Bosco Documentation</title>
+  
+
+  <link rel="shortcut icon" href="./img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="./css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="./css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="./css/highlight.css">
+  <link href="./css/extra.css" rel="stylesheet">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "None";
+    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_url = "/";
+  </script>
+  
+  <script src="./js/jquery-2.1.1.min.js"></script>
+  <script src="./js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="./js/highlight.pack.js"></script>
+  <script src="./js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="." class="icon icon-home"> Bosco Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href=".">Introduction</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#bosco">BOSCO</a></li>
+                
+                    <li><a class="toctree-l4" href="#introduction">Introduction</a></li>
+                
+                    <li><a class="toctree-l4" href="#bosco-definitions-versions-and-documents">BOSCO definitions, versions and documents</a></li>
+                
+                    <li><a class="toctree-l4" href="#requirements">Requirements</a></li>
+                
+                    <li><a class="toctree-l4" href="#how-to-install">How to Install</a></li>
+                
+                    <li><a class="toctree-l4" href="#how-to-use">How to Use</a></li>
+                
+                    <li><a class="toctree-l4" href="#troubleshooting">Troubleshooting</a></li>
+                
+                    <li><a class="toctree-l4" href="#get-helpsupport">Get Help/Support</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href=".">Bosco Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Introduction</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        
+          <a href="https://github.com/osg-bosco/osg-bosco.github.io" class="icon icon-github"> Edit on GitHub</a>
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="bosco">BOSCO</h1>
+<h2 id="introduction">Introduction</h2>
+<p>BOSCO is a job submission manager designed to help researchers manage
+large numbers (~1000s) of job submissions to the different resources
+that they can access on a campus (initially a PBS cluster running
+Linux).</p>
+<p>If you find any problems or need
+help installing or running BoSCO, please email
+<a href="./bosco-discuss@opensciencegrid.org">bosco-discuss@opensciencegrid.org</a>.</p>
+<p>Bosco offers the following capabilities:</p>
+<ul>
+<li>Jobs are automatically resubmitted when they fail. The researcher
+    does not need to babysit their jobs.</li>
+<li>Job submissions can be throttled to meet batch scheduler
+    settings (e.g. only 10 jobs running concurrently). The researcher
+    does not need to make multiple submissions. BOSCO handles that
+    for them.</li>
+<li>BOSCO is designed to be flexible and allows jobs to be submitted to
+    multiple clusters, with different job schedulers (e.g. PBS, LSF,
+    HTCondor, SGE, and SLURM).</li>
+</ul>
+<p>The primary advantage for the researcher is that they only need to learn
+one job scheduler environment even if the clusters utilize different
+native environments.</p>
+<h2 id="bosco-definitions-versions-and-documents">BOSCO definitions, versions and documents</h2>
+<!-- Inser Image Here 
+&lt;img
+src="%ATTACHURLPATH%/bosco-submit\_and\_resource.jpg"
+alt="bosco-submit\_and\_resource.jpg" width='378' height='399' /&gt;
+-->
+
+<ul>
+<li>The BOSCO submit node is the host where BOSCO is installed and where
+user's login to submit jobs via BOSCO. </li>
+<li>The multiple clusters added to
+BOSCO (i.e. where the user's can submit jobs via BOSCO) are referred as
+BOSCO resources. </li>
+<li>BOSCO resources can be a traditional cluster or a pool
+of resources connected via HTCondor, another BOSCO installation, Grid,
+or some other technology. Anyway all BOSCO resources have a submit node
+(where you would login to submit jobs if you had no BOSCO) and worker
+nodes (where the jobs run).</li>
+</ul>
+<p>This page explains how to use BOSCO. Before using BOSCO you, or someone
+for you, will have to install a version of BOSCO and add at least one
+BOSCO resource. Adding, testing and removing BOSCO resources is part of
+the BOSCO configuration.</p>
+<p><a href="./BoscoInstall">BOSCO Single User</a> allows a researcher to install BOSCO
+in her/his (non-privileged) account, to configure it and to use it. If
+you plan (at least initially) to connect a single cluster (BOSCO Single
+User Single Cluster) then use the <a href="./BoscoQuickStart">BOSCO Quick Start
+Guide</a>. Otherwise, to install and configure BOSCO
+Single-user read <a href="./BoscoInstall">BOSCO Single User Installation</a>.</p>
+<p><a href="./BoscoMultiUser">BOSCO Multi User</a> is installed, configured and started
+on a host by the system administrator (root) and is available to all the
+users on the host. To install and configure BOSCO Multi-user read <a href="./BoscoMultiUser">BOSCO
+Multi User Installation</a>.</p>
+<p>Later in this document we'll assume that BOSCO has been already
+installed and configured correctly. For the installation or to change
+the configuration (e.g. to add or remove BOSCO resources) please check
+the other documents: <a href="./BoscoInstall">BOSCO Single User Installation</a> and
+<a href="./BoscoMultiUser">BOSCO Multi User Installation</a>.</p>
+<h2 id="requirements">Requirements</h2>
+<p>There are specific requirements for the BOSCO resources that are
+specified in the install documents.</p>
+<p>To use BOSCO you need a BOSCO submit host with BOSCO installed and
+configured correctly. All requirements for the BOSCO submit host and the
+BOSCO resources, as well as the requirements to include BOSCO in a more
+complex Condor setup, are described in the install documents.</p>
+<h2 id="how-to-install">How to Install</h2>
+<p>Either you or a system administrator for you will have to install and
+setup BOSCO. The installation consists in downloading and installing the
+BOSCO software. The setup consists in managing which clusters are
+included in the BOSCO pool and will execute your jobs; it includes all
+the operations performed using the <code>bosco_cluster</code> command. The
+installation and setup are covered in two separate documents:</p>
+<ul>
+<li>To install and setup BOSCO so that it is used and configured from a
+    single user account please refer to <a href="./BoscoInstall">Bosco Installation</a></li>
+<li>To install and setup BOSCO so that it is configured from a single
+    user account but it can be used by all the accounts on the host
+    please refer to <a href="./BoscoMultiUser">Bosco Multiuser</a></li>
+</ul>
+<h2 id="how-to-use">How to Use</h2>
+<p>In order to use BOSCO and submit a job:</p>
+<ol>
+<li>BOSCO must be installed</li>
+<li>BOSCO must be running (it must have been started)</li>
+<li>At least one cluster must have been added to BOSCO</li>
+<li>You must setup the environment</li>
+</ol>
+<h3 id="startingstopping-and-configuring-bosco-each-time-i-mention">Starting/Stopping and Configuring BOSCO Each time I mention</h3>
+<p>"you" in this section refers either to you or to a system administrator
+that acts on your behalf, probably the same person that installed BOSCO.</p>
+<p>BOSCO has some persistent services that must be running. You'll have to
+start it at the beginning and probably after each reboot of your host.
+You should stop BOSCO before an upgrade and possibly before a shutdown
+of your host. If you will not use BOSCO anymore, uninstall will remove
+it from your system.</p>
+<p>You need to add to BOSCO all the clusters of which you like to use the
+resources. In order to run jobs you need at least one.</p>
+<p>Please refer to the <a href="./BoscoInstall">Bosco Installation</a> or <a href="./BoscoMultiUser">Bosco Multiuser</a> documents for
+operations including:</p>
+<ul>
+<li>starting BOSCO</li>
+<li>stopping BOSCO</li>
+<li>updating BOSCO</li>
+<li>uninstalling BOSCO</li>
+<li>adding one or more clusters to BOSCO</li>
+</ul>
+<h3 id="setup">Setup</h3>
+<p>Setup the environment before using Since BOSCO is not installed in
+the system path. An environment file must be sourced all the times you
+use BOSCO (start/stop/job submission or query, anything):</p>
+<pre><code class="screen">source ~/bosco/bosco_setenv
+</code></pre>
+
+<!-- <span class="twiki-macro INCLUDE" section="BoscoJob">BoscoInstall</span> -->
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="useful-configuration-and-log-files">Useful Configuration and Log Files</h3>
+<p>BOSCO underneath is using
+Condor. You can find all the Condor log files in
+<code>~/bosco/local.HOSTNAME/log</code></p>
+<h3 id="known-issues">Known Issues</h3>
+<ul>
+<li>Make sure that BOSCO is running. BOSCO may not survive after you
+log out. When you log back in after sourcing the setup
+(<code>source ~/bosco/bosco_setenv</code>), if you are using BOSCO single-user you
+should start BOSCO (<code>bosco_start</code>) specially if the command <code>condor_q</code>
+is failing. More details about starting BOSCO are in BoscoInstall and
+BoscoMultiUser</li>
+</ul>
+<h2 id="get-helpsupport">Get Help/Support</h2>
+<p>To get assistance you can send an email to <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#111;&#115;&#99;&#111;&#45;&#100;&#105;&#115;&#99;&#117;&#115;&#115;&#64;&#111;&#112;&#101;&#110;&#115;&#99;&#105;&#101;&#110;&#99;&#101;&#103;&#114;&#105;&#100;&#46;&#111;&#114;&#103;">&#98;&#111;&#115;&#99;&#111;&#45;&#100;&#105;&#115;&#99;&#117;&#115;&#115;&#64;&#111;&#112;&#101;&#110;&#115;&#99;&#105;&#101;&#110;&#99;&#101;&#103;&#114;&#105;&#100;&#46;&#111;&#114;&#103;</a></p>
+<!--
+<span class="twiki-macro INCLUDE"
+section="BoscoReferences">BoscoInstall</span>
+-->
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Open Science Grid</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/osg-bosco/osg-bosco.github.io" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+      
+    </span>
+</div>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 0.15.3
+Build Date UTC : 2016-07-13 00:53:00.237027
+-->
