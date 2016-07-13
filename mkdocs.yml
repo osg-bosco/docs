@@ -1,0 +1,14 @@
+site_name: Bosco Documentation
+repo_url: https://github.com/osg-bosco/osg-bosco.github.io
+copyright: Open Science Grid
+
+theme: readthedocs
+
+pages:
+  - 'Introduction': 'index.md'
+
+extra_css: 
+  - css/extra.css
+
+markdown_extensions:
+  - admonition
