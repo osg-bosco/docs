@@ -6,6 +6,7 @@ theme: readthedocs
 
 pages:
   - 'Introduction': 'index.md'
+  - 'Bosco Installation': 'BoscoInstall.md'
 
 extra_css: 
   - css/extra.css
