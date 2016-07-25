@@ -106,8 +106,8 @@ In order to use BOSCO and submit a job:
 3.  At least one cluster must have been added to BOSCO
 4.  You must setup the environment
 
-### Starting/Stopping and Configuring BOSCO Each time I mention
-"you" in this section refers either to you or to a system administrator
+### Starting/Stopping and Configuring BOSCO 
+Each time I mention "you" in this section refers either to you or to a system administrator
 that acts on your behalf, probably the same person that installed BOSCO.
 
 BOSCO has some persistent services that must be running. You'll have to
