@@ -4,7 +4,15 @@
     
     <url>
      <loc>None/</loc>
-     <lastmod>2016-07-12</lastmod>
+     <lastmod>2016-07-25</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>None/BoscoInstall/</loc>
+     <lastmod>2016-07-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
