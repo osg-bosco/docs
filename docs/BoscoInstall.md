@@ -106,12 +106,13 @@ The BOSCO submit host requires no ports open for `universe = grid` jobs.  For
 `universe = vanilla` jobs, port 11000 is required.
 
 
-!!! note The port 11000 is required
-**ONLY** if "vanilla" jobs are submitted. "vanilla" jobs require also
-that all worker nodes be able to reach the submit host: this means that
-the submit host has to have a public IP address or at least an address
-known by all BOSCO resources that are going to be added. If you need to
-use a port different from 11000, you can edit the BOSCO configuration.
+!!! note 
+    The port 11000 is required
+    **ONLY** if "vanilla" jobs are submitted. "vanilla" jobs require also
+    that all worker nodes be able to reach the submit host: this means that
+    the submit host has to have a public IP address or at least an address
+    known by all BOSCO resources that are going to be added. If you need to
+    use a port different from 11000, you can edit the BOSCO configuration.
 
 
 ### BOSCO Resources
