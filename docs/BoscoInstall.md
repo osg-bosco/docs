@@ -128,18 +128,18 @@ BOSCO submit host is required.
 
 ### Installation Procedure
 
-1.  [Download](http://bosco.opensciencegrid.org/download/) Bosco from
+1. [Download](http://bosco.opensciencegrid.org/download/) Bosco from
     the bosco website. We recommend the **Multi-Platform** installer. It
     is a bit more complex than the [quick start
     installation](BoscoQuickStart) but allows more options.
-2.  Untar Bosco from the command line: &lt;pre class="screen"&gt;
+2. Untar Bosco from the command line:
 
-  $ cd Downloads   
-  $ tar xzf boscoinstaller.tar.gz
+        $ cd Downloads   
+        $ tar xzf boscoinstaller.tar.gz
 
-1.  Run the installer:
+1. Run the installer:
 
-  $ python boscoinstaller
+        $ python boscoinstaller
 
 
 ## How to Use
@@ -155,7 +155,7 @@ Now BOSCO is installed. To use it:
 
 Since BOSCO is not installed in the system path. An environment file must be sourced all the times you use BOSCO (start/stop/job submission or query, anything):
 
-  $ source ~/bosco/bosco_setenv
+    $ source ~/bosco/bosco_setenv
 
 ### Starting BOSCO 
 BOSCO has some persistent services that must be running. You'll have to start it at the beginning and probably after each reboot of your host.
@@ -164,7 +164,7 @@ If you will not use BOSCO anymore, `bosco_uninstall` will remove it from your sy
 
 To start BOSCO:
 
-  $ bosco_start
+    $ bosco_start
 
 
 
@@ -172,10 +172,13 @@ To start BOSCO:
 
 To add a new cluster to the resources you will be using through BOSCO:
 
-   1. Setup the environment appropriate for your shell as described in the [setup environment section](#SetupEnvironment) (above).
-   1. For the cluster `mycluster` with user `username` and submit host `mycluster-submit.mydomain.org` (Fully Qualified Domain Name, aka full hostname including the domain name) and Local Resource Management System `LRMS` (valid values are =pbs=, =condor=, =sge= or =lsf=). Replace the parts in red: <pre class="screen">
-%UCL_PROMPT% bosco_cluster --add %RED%username@mycluster-submit.mydomain.org LRMS%ENDCOLOR% 
-</pre> %TWISTY{%TWISTY_OPTS_DETAILED% }%   <pre class="screen">
+1. Setup the environment appropriate for your shell as described in the [setup environment section](#SetupEnvironment) (above).
+   
+1. For the cluster `mycluster` with user `username` and submit host `mycluster-submit.mydomain.org` (Fully Qualified Domain Name, aka full hostname including the domain name) and Local Resource Management System `LRMS` (valid values are *pbs*, *condor*, *sge* or *lsf*). Replace the parts in red: 
+
+        $ bosco_cluster --add username@mycluster-submit.mydomain.org LRMS
+
+<!--
 -bash-3.2$ bosco_cluster -add itbv-ce-pbs.uchicago.edu
 Enter password to copy ssh keys to itbv-ce-pbs.uchicago.edu:
 The authenticity of host 'itbv-ce-pbs.uchicago.edu (128.135.158.176)' can't be established.
@@ -184,26 +187,28 @@ Are you sure you want to continue connecting (yes/no)? yes
 Warning: Permanently added 'itbv-ce-pbs.uchicago.edu,128.135.158.176' (RSA) to the list of known hosts.
 Installing BOSCO on itbv-ce-pbs.uchicago.edu...
 Installation complete
-</pre> %ENDTWISTY%
 
-When you add your first cluster, BOSCO will prompt you for a password that will be used to store the SSH keys used by BOSCO to access all your clusters (=Enter password for bosco ssh key:=). Select a random string. It is preferable if you do not use the password you use to access the cluster or to unlock your SSH keys.
+-->
 
-Then, if you don't have a ssh key agent with that cluster enabled, you will be prompted for the password that you use to access the cluster you are adding to BOSCO (=Enter password to copy ssh keys to ...=). This may be followed by a confirmation of the RSA key fingerprint, if it is your first ssh connection from this host, where you have to answer =yes=.
+When you add your first cluster, BOSCO will prompt you for a password that will be used to store the SSH keys used by BOSCO to access all your clusters (*Enter password for bosco ssh key:*). Select a random string. It is preferable if you do not use the password you use to access the cluster or to unlock your SSH keys.
 
-%IMPORTANT% You must be able to login to the remote cluster. If password authentication is OK, the script will ask you for your password. If key only login is allowed, then you must load your key in the =ssh-agent=. Here is an example adding the key and testing the login: %TWISTY{%TWISTY_OPTS_DETAILED% }%   <pre class="screen">
-%UCL_PROMPT% eval `ssh-agent`
-Agent pid 17103;
-%UCL_PROMPT% ssh-add id_rsa_bosco 
-Enter passphrase for id_rsa_bosco: 
-Identity added: id_rsa_bosco (id_rsa_bosco)
-%UCL_PROMPT% ssh  uc3@itbv-ce-pbs
-Last login: Thu Sep 13 13:49:33 2012 from uc3-bosco.mwt2.org
-$ logout
-</pre>
-%ENDTWISTY%
+Then, if you don't have a ssh key agent with that cluster enabled, you will be prompted for the password that you use to access the cluster you are adding to BOSCO (*Enter password to copy ssh keys to ...*). This may be followed by a confirmation of the RSA key fingerprint, if it is your first ssh connection from this host, where you have to answer *yes*.
+
+!!! important 
+  You must be able to login to the remote cluster. If password authentication is OK, the script will ask you for your password. If key only login is allowed, then you must load your key in the *ssh-agent*. Here is an example adding the key and testing the login:
+
+    $ eval `ssh-agent`
+    Agent pid 17103;
+    $ ssh-add id_rsa_bosco 
+    Enter passphrase for id_rsa_bosco: 
+    Identity added: id_rsa_bosco (id_rsa_bosco)
+    $ ssh  uc3@itbv-ce-pbs
+    Last login: Thu Sep 13 13:49:33 2012 from uc3-bosco.mwt2.org
+    $ logout
+
  
-
-%IMPORTANT% Some clusters have multiple login nodes behind a round robin DNS server. You can recognize them because when you login to the node (e,g: ==ssh login.mydomain.org==), it will show a name different form the one used to connect (e.g.: ==hostname -f== will return ==login2.mydomain.org==). If this happens you must add the BOSCO resources by using a name of the host, not the DNS alias (e.g. ==bosco_cluster --add login2.mydomain.org==). This is because sometime these multiple login nodes do not share all the directories and BOSCO may be unable to find its files if different connections land on different hosts : %TWISTY{%TWISTY_OPTS_DETAILED% }%  Note how =midway-login2.rcc.uchicago.edu= is use instead of =midway.rcc.uchicago.edu=: <pre class="screen">
+<!--
+!!! important Some clusters have multiple login nodes behind a round robin DNS server. You can recognize them because when you login to the node (e,g: ==ssh login.mydomain.org==), it will show a name different form the one used to connect (e.g.: ==hostname -f== will return ==login2.mydomain.org==). If this happens you must add the BOSCO resources by using a name of the host, not the DNS alias (e.g. ==bosco_cluster --add login2.mydomain.org==). This is because sometime these multiple login nodes do not share all the directories and BOSCO may be unable to find its files if different connections land on different hosts : %TWISTY{%TWISTY_OPTS_DETAILED% }%  Note how =midway-login2.rcc.uchicago.edu= is use instead of =midway.rcc.uchicago.edu=: <pre class="screen">
 %UCL_PROMPT% ssh  mm@%RED%midway.rcc.uchicago.edu%ENDCOLOR%
 mm@midway.rcc.uchicago.edu's password: 
 ===============================================================================
@@ -240,43 +245,38 @@ It is available to run jobs submitted with the following values:
 </pre>
 %ENDTWISTY%
 
+-->
+
+When adding the cluster, if the last message is **Done!**. Your cluster has been added successfully.
+
+You can see a list of the current clusters in BOSCO by typing:
+    $ bosco_cluster --list
 
 
-When adding the cluster, if the last message is =Done!=. Your cluster has been added successfully.
-
-You can see a list of the current clusters in BOSCO by typing:<pre class="screen">
-%UCL_PROMPT% bosco_cluster --list
-</pre>
-%TWISTY{%TWISTY_OPTS_DETAILED% }%   <pre class="screen">
--bash-3.2$ bosco_cluster --list
-itbv-ce-pbs.uchicago.edu
-</pre>
-%ENDTWISTY%
-%ENDSECTION{"BoscoAddResource"}%
-
-
----## Submitting a test job
+### Submitting a test job
 You can send a simple test job to verify that the cluster added is working correctly.
 
-To send a BOSCO test job to the host %RED%username@mycluster-submit.mydomain%ENDCOLOR% (name as listed in the output of =bosco_cluster --list=):
-   1. Setup the environment appropriate for your shell as described in the setup environment section (above).
-   1. For the cluster %RED%username@mycluster-submit.mydomain%ENDCOLOR% (identical to output of  =bosco_cluster --list=). Replace the parts in red: <pre class="screen">
-%UCL_PROMPT% bosco_cluster --test %RED%username@mycluster-submit.mydomain%ENDCOLOR%
-</pre> %TWISTY{%TWISTY_OPTS_DETAILED% }%   <pre class="screen">
-%UCL_PROMPT% $ bosco_cluster -t dweitzel@ff-grid.unl.edu
-dweitzel@ff-grid.unl.edu
-Testing ssh to dweitzel@ff-grid.unl.edu...Passed!
-Testing bosco submission...Passed!
-Checking for submission to remote pbs cluster (could take ~30 seconds)...Passed!
-Submission files for these jobs are in /home/dweitzel/bosco/local.localhocentos56/bosco-test
-Execution on the remote cluster could take a while...Exiting
-</pre> %ENDTWISTY%
-%ENDSECTION{"BoscoUseShort"}%
+To send a BOSCO test job to the host *username@mycluster-submit.mydomain* (name as listed in the output of `bosco_cluster --list`):
+1. Setup the environment appropriate for your shell as described in the setup environment section (above).
 
----## How to Stop and Remove
-To stop BOSCO:<pre class="screen">
-%UCL_PROMPT% bosco_stop
-</pre>
+1. For the cluster *username@mycluster-submit.mydomain* (identical to output of  *bosco_cluster --list*). Replace the username and cluster: 
+   
+        $ bosco_cluster --test username@mycluster-submit.mydomain
+
+  For example: 
+
+        $ bosco_cluster -t dweitzel@ff-grid.unl.edu
+        dweitzel@ff-grid.unl.edu
+        Testing ssh to dweitzel@ff-grid.unl.edu...Passed!
+        Testing bosco submission...Passed!
+        Checking for submission to remote pbs cluster (could take ~30 seconds)...Passed!
+        Submission files for these jobs are in /home/dweitzel/bosco/local.localhocentos56/bosco-test
+        Execution on the remote cluster could take a while...Exiting
+
+### How to Stop and Remove
+To stop BOSCO:
+    $ bosco_stop
+
 
 To uninstall BOSCO:
    * If you want to remove remote clusters get the list and remove them one by one: <pre class="screen">%UCL_PROMPT% bosco_cluster --list
