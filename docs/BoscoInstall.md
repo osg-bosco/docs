@@ -195,16 +195,16 @@ When you add your first cluster, BOSCO will prompt you for a password that will 
 Then, if you don't have a ssh key agent with that cluster enabled, you will be prompted for the password that you use to access the cluster you are adding to BOSCO (*Enter password to copy ssh keys to ...*). This may be followed by a confirmation of the RSA key fingerprint, if it is your first ssh connection from this host, where you have to answer *yes*.
 
 !!! important 
-  You must be able to login to the remote cluster. If password authentication is OK, the script will ask you for your password. If key only login is allowed, then you must load your key in the *ssh-agent*. Here is an example adding the key and testing the login:
+    You must be able to login to the remote cluster. If password authentication is OK, the script will ask you for your password. If key only login is allowed, then you must load your key in the *ssh-agent*. Here is an example adding the key and testing the login:
 
-    $ eval `ssh-agent`
-    Agent pid 17103;
-    $ ssh-add id_rsa_bosco 
-    Enter passphrase for id_rsa_bosco: 
-    Identity added: id_rsa_bosco (id_rsa_bosco)
-    $ ssh  uc3@itbv-ce-pbs
-    Last login: Thu Sep 13 13:49:33 2012 from uc3-bosco.mwt2.org
-    $ logout
+        $ eval `ssh-agent`
+        Agent pid 17103;
+        $ ssh-add id_rsa_bosco 
+        Enter passphrase for id_rsa_bosco: 
+        Identity added: id_rsa_bosco (id_rsa_bosco)
+        $ ssh  uc3@itbv-ce-pbs
+        Last login: Thu Sep 13 13:49:33 2012 from uc3-bosco.mwt2.org
+        $ logout
 
  
 <!--
