@@ -64,7 +64,7 @@ explained in the quick start guide.
 :   no special requirements
 
   * **SLURM flavors**
-:   requires Torque/PBS command wrappers (from SLURM contrib)
+:   no special requirements
 
 **BOSCO resource (aka Cluster)**
 :   This is the remote cluster that jobs will execute on (the
@@ -78,13 +78,14 @@ explained in the quick start guide.
  * **Network Access**
     :   The worker nodes need to have access to the submit host. The         worker nodes can be behind a         [NAT](https://en.wikipedia.org/wiki/Network_address_translation)         between the worker nodes and the submit host.
 
-!!! note The BOSCO resource requirements
-just listed (shared file system and outbound network access) are
-required only if you submit jobs using the HTCondor *vanilla* universe.
-If you submit jobs using the **grid universe**, submitting to one
-resource at the time, then both requirements can be relaxed. I.e. there
-is **no need of a shared file system or access to the BOSCO submit host
-from the BOSCO resource**.
+!!! note 
+    The BOSCO resource requirements
+    just listed (shared file system and outbound network access) are
+    required only if you submit jobs using the HTCondor *vanilla* universe.
+    If you submit jobs using the **grid universe**, submitting to one
+    resource at the time, then both requirements can be relaxed. I.e. there
+    is **no need of a shared file system or access to the BOSCO submit host
+    from the BOSCO resource**.
 
 BOSCO can be used as part of a more complex Condor setup (with flocking
 or multiple pools). Whatever the setup:
