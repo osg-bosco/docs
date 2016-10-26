@@ -280,12 +280,20 @@ To stop BOSCO:
 
 
 To uninstall BOSCO:
-   * If you want to remove remote clusters get the list and remove them one by one: <pre class="screen">%UCL_PROMPT% bosco_cluster --list
-# For each remote cluster 
-%UCL_PROMPT% bosco_cluster -r %RED%user@cluster_as_spelled_in_list%ENDCOLOR%</pre>
-   * Remove the installation directory:  <pre class="screen">%UCL_PROMPT% bosco_uninstall</pre>
+1. If you want to remove remote clusters get the list and remove them one by one:
 
-%NOTE% Uninstalling BOSCO removes the software but leaves the files in your =.bosco= and =.ssh= directories with all the information about the added clusters and the SSH keys. Files installed on the remote clusters are not removed either. 
+        $ bosco_cluster --list
+        
+    For each remote cluster:
+
+        $ bosco_cluster -r user@cluster_as_spelled_in_list
+
+2. Remove the installation directory:  
+
+        $ bosco_uninstall
+
+!!! note
+    Uninstalling BOSCO removes the software but leaves the files in your =.bosco= and =.ssh= directories with all the information about the added clusters and the SSH keys. Files installed on the remote clusters are not removed either. 
 
 ---## How to Update BOSCO
 If you want to update BOSCO to a new version you have to:
