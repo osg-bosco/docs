@@ -81,9 +81,6 @@
                     <li><a class="toctree-l4" href="#how-to-use">How to Use</a></li>
                 
             
-                <li class="toctree-l3"><a href="#for-each-remote-cluster">For each remote cluster</a></li>
-                
-            
                 <li class="toctree-l3"><a href="#binbash">!/bin/bash</a></li>
                 
             
@@ -464,11 +461,22 @@ It is available to run jobs submitted with the following values:
 <p>To stop BOSCO:
     $ bosco_stop</p>
 <p>To uninstall BOSCO:
-   * If you want to remove remote clusters get the list and remove them one by one: <pre class="screen">%UCL_PROMPT% bosco_cluster --list</p>
-<h1 id="for-each-remote-cluster">For each remote cluster</h1>
-<p>%UCL_PROMPT% bosco_cluster -r %RED%user@cluster_as_spelled_in_list%ENDCOLOR%</pre>
-   * Remove the installation directory:  <pre class="screen">%UCL_PROMPT% bosco_uninstall</pre></p>
-<p>%NOTE% Uninstalling BOSCO removes the software but leaves the files in your =.bosco= and =.ssh= directories with all the information about the added clusters and the SSH keys. Files installed on the remote clusters are not removed either. </p>
+1. If you want to remove remote clusters get the list and remove them one by one:</p>
+<pre><code>    $ bosco_cluster --list
+
+For each remote cluster:
+
+    $ bosco_cluster -r user@cluster_as_spelled_in_list
+</code></pre>
+<ol>
+<li>Remove the installation directory:  <pre><code>$ bosco_uninstall
+</code></pre>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Uninstalling BOSCO removes the software but leaves the files in your =.bosco= and =.ssh= directories with all the information about the added clusters and the SSH keys. Files installed on the remote clusters are not removed either. </p>
+</div>
 <p>---## How to Update BOSCO
 If you want to update BOSCO to a new version you have to:
    1. setup BOSCO:<pre class="screen">%UCL_PROMPT% source ~/bosco/bosco_setenv</pre>
