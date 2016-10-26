@@ -2,7 +2,7 @@ env:
   global:
   - GIT_NAME: "'Markdown autodeploy'"
   - GIT_EMAIL: djw8605@gmail.com
-  - GH_REF: github.com/osg-bosco/docs.git
+  - GH_REF: djw8605@github.com/osg-bosco/docs.git
 language: python
 before_script:
 - pip install mkdocs
