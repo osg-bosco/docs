@@ -318,7 +318,172 @@ If you have a monitoring system and you want to query BOSCO you need to know the
 -   The BOSCO submit host collector runs under the shared port collector on port 11000: **`bosco.yourdomain.org:11000?sock=collector`**
 -   The host sending the query needs to be authorized to run the query
 
-<span class="twiki-macro INCLUDE" section="BoscoAdvancedUseInstContent">BoscoInstall 
+
+## Changing the BOSCO port
+BOSCO is using the HTCondor [[http://research.cs.wisc.edu/htcondor/manual/latest/3_7Networking_includes.html#SECTION00472000000000000000][Shared port daemon]]. This means that all the communication are coming to the same port, by default 11000. If that port is taken (already bound), the [[BoscoQuickStart][quick start installer]] will select the first available port. You can check and edit manually the port used by BOSCO in the file =$HOME/bosco/local.bosco/config/condor_config.factory=. You can change the port passed to the shared port daemon (in %RED%red%ENDCOLOR%): <pre class="file"># Enabled Shared Port
+USE_SHARED_PORT = True
+SHARED_PORT_ARGS = -p %RED%11000%ENDCOLOR%
+</pre>
+%NOTE% You need to restart BOSCO after you change the configuration (=bosco_stop; bosco_start=).
+
+If you are referring to this BOSCO pool (e.g. for flocking) you'll need to use a string like: =%RED%your_host.domain%ENDCOLOR%:%RED%11000%ENDCOLOR%?sock=collector= .
+Replace host and port with the correct ones.
+
+## Multi homed hosts
+Multi homed hosts are hosts with multiple Network Interfaces (aka dual-homed when they have 2 NICs).
+BOSCO configuration is tricky on multi-homed hosts. BOSCO requires the submit host to be able to connect back to the BOSCO host, so it must advertise an interface that is reachable from all the chosen submit hosts. E.g. a host with a NIC on a private network and one with a public IP address must advertise the public address if the submit hosts are outside of the private network. 
+In order to do that you have to:
+   * make sure that the name returned by the command =/bin/hostname -f= is the name resolving in the public address (e.g. =host `hostname -f`= should return the public address). If not you should change it.
+   * edit =~/bosco/local.%RED%$HOST%ENDCOLOR%/condor_config.local= (HOST is the short host name) and add a line like =NETWORK_INTERFACE = xxx.xxx.xxx.xxx= , substituting xxx.xxx.xxx.xxx with the public IP address. This will tell BOSCO to use that address.
+
+
+## Modifying maximum number of submitted jobs to a resource
+
+Many clusters limit the number of jobs that can be submitted to the scheduler.  For PBS, we are able to detect this limit.  For SGE and LSF, we are not able to detect this limit.  In the cases where we cannot find the limit, we set the maximum number of jobs very conservatively, to a maximum of 10.  This includes both the number of idle and running jobs to the cluster.
+
+The limit is specified in the condor config file =~/bosco/local.bosco/condor_config.local=, at the bottom.  Edit the value of the configuration variable =GRIDMANAGER_MAX_SUBMITTED_JOBS_PER_RESOURCE=
+
+<pre class="file">
+GRIDMANAGER_MAX_SUBMITTED_JOBS_PER_RESOURCE = %RED%10%ENDCOLOR%
+</pre>
+
+## Custom submit properties
+Bosco has the ability to add custom submit properties to every job submitted to a cluster.  On the cluster's login node (the BOSCO resource, the host you used at the end of the line when typing the =bosco_cluster --add= command), create the file 
+
+#CustomScriptLocations
+   * *PBS/SLURM* - =~/bosco/glite/bin/pbs_local_submit_attributes.sh=
+   * *Condor* - =~/bosco/glite/bin/condor_local_submit_attributes.sh=
+   * *SGE* (and other GE) - =~/bosco/glite/bin/sge_local_submit_attributes.sh=
+   * *LSF* - =~/bosco/glite/bin/lsf_local_submit_attributes.sh=
+
+%IMPORTANT% This file is executed and the output is inserted into the submit script. I.e. It is not cat, use echo/cat statements in the script.
+
+Below is an example =pbs_local_submit_attributes.sh= script which will cause every job submitted to this cluster through Bosco to request 1 node with 8 cores:
+<pre>
+#!/bin/sh
+
+echo "#PBS -l nodes=1:ppn=8"
+</pre>
+
+### Passing parameters to the custom submit properties.
+You may also pass parameters to the custom scripts by adding a special parameter to the Bosco submit script.
+
+For example, in your Bosco submit script, add: <pre class="file">
+...
+%RED%+remote_cerequirements = NumJobs == 100%ENDCOLOR%
+...
+queue
+</pre>
+
+After you submit this job to Bosco, it will execute the [[#CustomScriptLocations][custom scripts]] with, in this example, =NumJobs= set in the environment equal to =100=.  The custom script can take advantage of these values.  For example, a PBS script can use the !NumJobs: <pre>
+#!/bin/sh
+
+echo "#PBS -l select=$NumJobs"
+</pre>
+
+This will set the number of requested cores from PBS to !NumJobs specified in the original Bosco Submit file.
+
+## Flocking to a BOSCO installation
+In some special cases you may desire to flock to your BOSCO installation. If you don't know what I'm talking about, then skip this section.
+
+In order to enable flocking you must use an IP so that all the hosts you are flocking from can communicate with the BOSCO host.
+Then you must setup FLOCK_FROM and the security configuration so that the communications are authorized.
+
+BOSCO has strong security settings. Here are two examples:
+   1 Using GSI authentication (a strong authentication method) you must provide and install X509 certificates, you must change the configuration <pre class="file">
+   
+Networking - If you did not already, remember that you need to set BOSCO not to use the loopback port
+
+NETWORK_INTERFACE =
+
+
+ Hosts definition
+
+ BOSCO host
+H_BOSCO = %RED%bosco.mydomain.edu%ENDCOLOR%
+H_BOSCO_DN = %RED%/DC=com/DC=DigiCert-Grid/O=Open Science Grid/OU=Services/CN=bosco.mydomain.edu%ENDCOLOR%
+
+ submit host (flocking to BOSCO host)
+H_SUB = %RED%sub.mydomain.edu%ENDCOLOR%
+H_SUB_DN = %RED%/DC=com/DC=DigiCert-Grid/O=Open Science Grid/OU=Services/CN=sub.mydomain.edu%ENDCOLOR%
+
+
+ Flocking configuration
+ 
+FLOCK_FROM = $(FLOCK_FROM) $(H_SUB)
+
+
+ Security definitions
+
+ Assuming system-wide installed CA certificates 
+GSI_DAEMON_DIRECTORY = /etc/grid-security
+ This host's certificates
+GSI_DAEMON_CERT = /etc/grid-security/hostcert.pem
+GSI_DAEMON_KEY = /etc/grid-security/hostkey.pem
+ default GSI_DAEMON_TRUSTED_CA_DIR = $(GSI_DAEMON_DIRECTORY)/certificates
+CERTIFICATE_MAPFILE= $HOME/bosco/local.bosco/certs/condor_mapfile
+
+ Not used
+MY_DN = $(H_BOSCO_DN)
+
+ Who to trust?  Include the submitters flocking here
+GSI_DAEMON_NAME = $(GSI_DAEMON_NAME), $(H_BOSCO_DN), $(H_SUB_DN)
+Enable authentication from the Negotiator
+SEC_ENABLE_MATCH_PASSWORD_AUTHENTICATION = TRUE
+
+ Enable gsi authentication, and claimtobe (for campus factories)
+ The default (unix) should be: FS, KERBEROS, GSI
+SEC_DEFAULT_AUTHENTICATION_METHODS = FS,GSI, PASSWORD, $(SEC_DEFAULT_AUTHENTICATION_METHODS)
+SEC_CLIENT_AUTHENTICATION_METHODS = FS, PASSWORD, GSI, CLAIMTOBE
+SEC_DAEMON_AUTHENTICATION_METHODS = FS, PASSWORD, GSI, CLAIMTOBE
+SEC_WRITE_AUTHENTICATION_METHODS = FS, PASSWORD, GSI, CLAIMTOBE
+SEC_ADVERTISE_SCHEDD_METHODS = FS, PASSWORD, GSI, CLAIMTOBE
+
+ALLOW_DAEMON = $(ALLOW_DAEMON) condor_pool@*/* %RED%boscouser%ENDCOLOR%@*/* $(FULL_HOSTNAME) $(IP_ADDRESS)
+ALLOW_ADVERTISE_SCHEDD = %RED%boscouser%ENDCOLOR%@*/*
+</pre> %ENDTWISTY% and define or update the condor_mapfile (e.g. =$HOME/bosco/local.bosco/certs/condor_mapfile=) %TWISTY{%TWISTY_OPTS_DETAILED% showlink="Click to see the condor_mapfile" }%   <pre class="file">#
+GSI "^%RED%\/DC\=com\/DC\=DigiCert\-Grid\/O\=Open\ Science\ Grid\/OU\=Services\/CN\=sub\.mydomain\.edu%ENDCOLOR%$" %RED%boscouser@sub.mydomain.edu%ENDCOLOR%
+GSI "^%RED%\/DC\=com\/DC\=DigiCert\-Grid\/O\=Open\ Science\ Grid\/OU\=Services\/CN\=bosco\.mydomain\.edu%ENDCOLOR%$" %RED%boscouser%ENDCOLOR%
+
+SSL (.*) ssl@unmapped
+CLAIMTOBE (.*) \1
+PASSWORD (.*) \1
+
+GSI (.*) anonymous
+FS (.*) \1
+</pre> %ENDTWISTY% Remember to enable and configure GSI authentication also on the host you are flocking form.
+   1 Relaxing BOSCO security setting to allow CLAIMTOBE authentication. This is not very secure. Use it only if you can trust all the machines on the network and remember to enable CLAIMTOBE also on the host you are flocking from %TWISTY{%TWISTY_OPTS_DETAILED% showlink="Click to see the configuration file" }%   <pre class="file">#
+# Networking - If you did not already, remember that you need to set BOSCO not to use the loopback port
+#
+NETWORK_INTERFACE =
+
+#
+# Flocking configuration
+# 
+FLOCK_FROM = %RED%host_from.domain%ENDCOLOR%
+
+#
+# Security definitions overrides
+# 
+SEC_DEFAULT_ENCRYPTION = OPTIONAL
+SEC_DEFAULT_INTEGRITY = PREFERRED
+# To allow status read
+SEC_READ_INTEGRITY = OPTIONAL
+
+SEC_CLIENT_AUTHENTICATION_METHODS = FS, PASSWORD, CLAIMTOBE
+
+ALLOW_ADVERTISE_SCHEDD = */%RED%IP_of_the_host_in_flock_from%ENDCOLOR% $(FULL_HOSTNAME) $(IP_ADDRESS) $(ALLOW_DAEMON)
+
+SEC_DAEMON_AUTHENTICATION = PREFERRED
+SEC_DAEMON_INTEGRITY = PREFERRED
+SEC_DAEMON_AUTHENTICATION_METHODS = FS,PASSWORD,CLAIMTOBE
+SEC_WRITE_AUTHENTICATION_METHODS = FS,PASSWORD,CLAIMTOBE
+</pre> 
+
+After copying from the examples (click above to expand the example files) or editing your configuration file, save it as =$HOME/bosco/local.bosco/config/zzz_condor_config.flocking=. 
+Other names are OK as long as its definition override the default ones of BOSCO (check with =condor_config_val -config=).
+
+Then stop and restart BOSCO.
 ### Troubleshooting
 **Useful Configuration and Log Files** 
 BOSCO underneath is using Condor. You can find all the Condor log files in `/opt/bosco/local.HOSTNAME/log` (supposing that `/opt/bosco` is the installation directory).
