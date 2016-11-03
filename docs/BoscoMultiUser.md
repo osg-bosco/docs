@@ -31,37 +31,82 @@ Here are some key differences:
 | Only User can submit jobs to the HTCondor pool of BOSCO                                                               | All the users on the system can submit jobs to the HTCondor pool of BOSCO                                                             |
 | No choices because it must be easy to install and run for scientists without system administration experience          | More flexible because there may be more customization to add BOSCO in the Campus Grid                                                 |
 
-### Requirements
-<dl>
-   <dt>BOSCO Submit-node:</dt> <dd>This is the system that the researcher uses to submit jobs. In general it can be the user's laptop, workstation, or it can be another system that the user logs into for submitting jobs to the cluster.  *There can not be any Condor collector running on the submit node*, otherwise it will conflict with Bosco.</dd>
-  <dt>BOSCO resource (aka Cluster) submit-node:</dt> <dd>This is the node that you normally login to on the PBS, SGE, LSF, SLURM or HTCondor cluster (the BOSCO resource that you'd like to add).</dd>
-      <dt>PBS flavors supported:</dt> <dd>Torque and PBSPro</dd>
-      <dt>HTCondor flavors supported:</dt> <dd>HTCondor 7.6 or later</dd>
-      <dt>SGE flavors supported:</dt> <dd>no special requirements (Sun Grid Engine and other Grid Engine versions supported)</dd>
-      <dt>LSF flavors:</dt> <dd>no special requirements</dd>
-      <dt>SLURM flavors:</dt> <dd>requires Torque/PBS command wrappers (from SLURM contrib)</dd>
-   <dt>BOSCO resource (aka Cluster):</dt> <dd>This is the remote cluster that jobs will execute on (the BOSCO resource).</dd>  
-</dl>
-   The Cluster submit-node is a node belonging to this cluster. The nodes where jobs run are referred as worker nodes.  All the cluster needs:
-<dl>
-      <dt>Shared Filesystem:</dt> <dd>The Cluster needs a shared home filesystem (if the Cluster has no shared filesystem only Grid universe jobs can be sent to it)</dd>
-      <dt>Network Access:</dt> <dd>The worker nodes need to have access to the submit host.</dd>  
-</dl>
-The worker nodes can be behind a [[https://en.wikipedia.org/wiki/Network_address_translation][NAT]] between the worker nodes and the submit host.
-The BOSCO resource requirements just listed (shared file system and outbound network access) are required only if you submit jobs using the HTCondor _vanilla_ universe. If you submit jobs using the *grid universe*, submitting to one resource at the time, then both requirements can be relaxed. I.e. there is *no need of a shared file system or access to the BOSCO submit host from the BOSCO resource*.
+## Requirements
 
-BOSCO can be used as part of a more complex Condor setup (with flocking or multiple pools). Whatever the setup:
-   * the BOSCO host needs connectivity to the cluster submit nodes of the BOSCO resources
-   * the worker nodes of the BOSCO resources (running the jobs, e.g. the nodes in the PBS cluster) must have network connectivity to the jobs submit node (the BOSCO host or a different Condor schedd flocking into it) 
+* **BOSCO Submit-node**
+:   This is the system that the researcher uses to submit jobs. In
+    general it can be the user's laptop, workstation, or it can be
+    another system that the user logs into for submitting jobs to
+    the cluster. **There can not be any Condor collector running on the
+    submit node**, otherwise it will conflict with Bosco.
 
-# Networking
-## Firewalls
+* **BOSCO resource (aka Cluster) submit-node**
+:   This is the node that you normally login to on the PBS, SGE, LSF,
+    SLURM or HTCondor cluster (the BOSCO resource that you'd like
+    to add).
+
+  * **PBS flavors supported**
+:   Torque and PBSPro
+
+  * **HTCondor flavors supported**
+:   HTCondor 7.6 or later
+
+  * **SGE flavors supported**
+:   no special requirements (Sun Grid Engine and other Grid Engine
+    versions supported)
+
+  * **LSF flavors**
+:   no special requirements
+
+  * **SLURM flavors**
+:   no special requirements
+
+**BOSCO resource (aka Cluster)**
+:   This is the remote cluster that jobs will execute on (the
+    BOSCO resource). The Cluster submit-node is a node belonging to
+    this cluster. The nodes where jobs run are referred as worker nodes.
+    All the cluster needs:
+
+ * **Shared Filesystem**
+    :   The Cluster needs a shared home filesystem (if the Cluster has         no shared filesystem only Grid universe jobs can be sent to it)
+
+ * **Network Access**
+    :   The worker nodes need to have access to the submit host. The         worker nodes can be behind a         [NAT](https://en.wikipedia.org/wiki/Network_address_translation)         between the worker nodes and the submit host.
+
+!!! note 
+    The BOSCO resource requirements
+    just listed (shared file system and outbound network access) are
+    required only if you submit jobs using the HTCondor *vanilla* universe.
+    If you submit jobs using the **grid universe**, submitting to one
+    resource at the time, then both requirements can be relaxed. I.e. there
+    is **no need of a shared file system or access to the BOSCO submit host
+    from the BOSCO resource**.
+BOSCO can be used as part of a more complex Condor setup (with flocking
+or multiple pools). Whatever the setup:
+
+-   the BOSCO host needs connectivity to the cluster submit nodes of the
+    BOSCO resources
+-   the worker nodes of the BOSCO resources (running the jobs, e.g. the
+    nodes in the PBS cluster) must have network connectivity to the jobs
+    submit node (the BOSCO host or a different Condor schedd flocking
+    into it)
+    
+
+## Networking
+
 ### BOSCO submit host
 
-These firewall requirements are for the BOSCO submit host. 
+The BOSCO submit host requires no ports open for `universe = grid` jobs.  For 
+`universe = vanilla` jobs, port 11000 is required.
 
-Please Note: The port 11000 is required *ONLY* if "vanilla" jobs are submitted. "vanilla" jobs require also that all worker nodes be able to reach the submit host: this means that the submit host has to have a public IP address or at least an address known by all BOSCO resources that are going to be added. If you need to use a port different form 11000, you can edit the BOSCO configuration.
 
+!!! note 
+    The port 11000 is required
+    **ONLY** if "vanilla" jobs are submitted. "vanilla" jobs require also
+    that all worker nodes be able to reach the submit host: this means that
+    the submit host has to have a public IP address or at least an address
+    known by all BOSCO resources that are going to be added. If you need to
+    use a port different from 11000, you can edit the BOSCO configuration
  
 ### How to Install
 **Creating the Bosco User**
@@ -275,14 +320,93 @@ If you have a monitoring system and you want to query BOSCO you need to know the
 
 <span class="twiki-macro INCLUDE" section="BoscoAdvancedUseInstContent">BoscoInstall 
 ### Troubleshooting
-_ Useful Configuration and Log Files BOSCO underneath is using Condor. You can find all the Condor log files in `/opt/bosco/local.HOSTNAME/log` (supposing that `/opt/bosco` is the installation directory).
+**Useful Configuration and Log Files** 
+BOSCO underneath is using Condor. You can find all the Condor log files in `/opt/bosco/local.HOSTNAME/log` (supposing that `/opt/bosco` is the installation directory).
 
-<span class="twiki-macro INCLUDE" section="BoscoTroubleshootingItems">BoscoInstall 
+## Make sure that you can connect to the BOSCO host
+If you see errors like:<pre class="screen">
+ Installing BOSCO on user@osg-ss-submit.chtc.wisc.edu...
+ ssh: connect to host osg-ss-submit.chtc.wisc.edu port 22: Connection timed out
+ rsync: connection unexpectedly closed (0 bytes received so far) [sender]
+ rsync error: unexplained error (code 255) at io.c(600) [sender=3.0.6]
+ ssh: connect to host osg-ss-submit.chtc.wisc.edu port 22: Connection timed out
+ rsync: connection unexpectedly closed (0 bytes received so far) [sender]
+ rsync error: unexplained error (code 255) at io.c(600) [sender=3.0.6]
+ ssh: connect to host osg-ss-submit.chtc.wisc.edu port 22: Connection timed out
+ rsync: connection unexpectedly closed (0 bytes received so far) [sender]
+ rsync error: unexplained error (code 255) at io.c(600) [sender=3.0.6]
+</pre>
+Please try manually to ssh from the BOSCO host to the cluster submit node. The ability to connect is required in order to install BOSCO.
+
+## Make sure that BOSCO is running
+BOSCO may not survive after you log out, for example if the BOSCO node was restarted while you where logged out. 
+When you log back in after sourcing the setup as described in the [[#SetupEnvironment][setup environment section]], you should start BOSCO as described in the [[#BoscoStart][BOSCO start section]], specially if the command =condor_q= is failing.
+
+## Errors due to leftover files
+Bosco files on the submit host are in:
+   * =~/bosco/= - the release directory
+   * =~/.bosco/= - some service files
+   * =~/.ssh/= - the ssh key used by BOSCO
+
+If you used =bosco_uninstall= it will remove all BOSCO related files. If you removed BOSCO by hand you must pay attention.
+If the service key is still in =.ssh= but the other files are missing, during the execution of BOSCO commands you will get some unclear errors like 
+**"IOError: [Errno 2] No such file or directory: '/home/marco/.bosco/.pass'"** , **"OSError: [Errno 5] Input/output error"** , all followed by:
+<pre>Password-less ssh to marco@itb2.uchicago.edu did NOT work, even after adding the ssh-keys.
+Does the remote resource allow password-less ssh?
+</pre>
+
+If that happens you can remove the service files and the keys using:<pre>rm -r ~/.bosco
+rm ~/.ssh/bosco_key.rsa*</pre>
+and then re-add all the clusters with =bosco_cluster --add=.
+
+## Unable to download and prepare BOSCO for remote installation. 
+BOSCO can return this error:
+   1. Because the BOSCO submit host is unable to download BOSCO for the resource installation, e.g. a firewall is blocking the download or the server is down
+   2. More commonly because there are problems with the login host of the BOSCO resource, e.g. the disk is full or there are multiple login nodes
+You can check 1 byy downloading BOSCO on your BOSCO submit host.
+To check 2 you have to login on the BOSCO resource: =df= will tell you you some disks are full, with =hostname -f= you can check if the name is different form the one that you used to login with ssh. If the name differs probably you are using a cluster with multiple login nodes and you must use only one for BOSCO. Se the second "IMPORTANT" note in the [[#AddResourceSection][section to add a cluster to BOSCO]] (above).
+
+If you see errors similar to the one below while executing ==bosco_cluster --add==:
+<pre class="screen">
+Downloading for USER@RESOURCE
+Unpacking.tar: Cannot save working directory 
+tar: Error is not recoverable: exiting now 
+ls: /tmp/tmp.qeIJ9139/condor*: No such file or directory 
+Unable to download and prepare BOSCO for remote installation. 
+</pre>
+then you are using most likely the generic name of a multi-login cluster and you should use the name of one of the nodes as suggested in the [[#AddResourceSection][note above]]. 
+
 ### Get Help/Support To get assistance you can send an email to <bosco-discuss@opensciencegrid.org>
 
-<span class="twiki-macro INCLUDE" section="BoscoReferences">BoscoInstall 
+### References 
+[[http://bosco.opensciencegrid.org/][BoSCO Web site]] and documents about the latest production release (v1.2)
+   * [[BoSCO][Using Bosco]]
+   * [[BoscoInstall][Installing BoSCO]]
+   * [[BoscoMultiUser][Installing BoSCO Multi User]]
+   * [[BoscoQuickStart][Quick start guide to Bosco]]
+   * BoscoR
 
-Comments
-========
+Campus Grids related documents:
+   * https://twiki.grid.iu.edu/bin/view/CampusGrids
+   * https://twiki.grid.iu.edu/bin/view/Documentation/CampusFactoryInstall
 
-<span class="twiki-macro COMMENT" type="tableappend"> 
+Condor documents:
+   * Condor manual: http://research.cs.wisc.edu/condor/manual/
+
+How to submit Condor jobs:
+   * Tutorial: http://research.cs.wisc.edu/condor/tutorials/alliance98/submit/submit.html
+   * Condor manual: http://research.cs.wisc.edu/condor/manual/v7.6/2_5Submitting_Job.html
+
+Developers documents:
+   * [[TestBoSCO][BOSCO tests for developers and testers]]
+   * [[BoscoRoadmap][BOSCO Roadmap (planned and desired features)]]
+
+Here you can check out older releases:
+   * [[BoSCOv0][BOSCO version 0]]
+   * [[BoSCOv1][BOSCO version 1]]
+   * [[BoSCOv1p1][BOSCO version 1.1]]
+   * [[BoSCOv1p2][BOSCO version 1.2]]
+
+   * CICiForum130418
+
+
