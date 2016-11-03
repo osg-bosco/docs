@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>Bosco MultiUser Installation - Bosco Documentation</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  <link href="../css/extra.css" rel="stylesheet">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Bosco MultiUser Installation";
+    var mkdocs_page_input_path = "BoscoMultiUser.md";
+    var mkdocs_page_url = "/BoscoMultiUser/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Bosco Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../BoscoInstall/">Bosco Installation</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Bosco MultiUser Installation</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#bosco-multi-user">BOSCO Multi User</a></li>
+                
+                    <li><a class="toctree-l4" href="#introduction">Introduction</a></li>
+                
+                    <li><a class="toctree-l4" href="#bosco-multi-user_1">BOSCO multi user</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#comments">Comments</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Bosco Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Bosco MultiUser Installation</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        
+          <a href="https://github.com/osg-bosco/docs" class="icon icon-github"> Edit on GitHub</a>
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="bosco-multi-user">BOSCO Multi User</h1>
+<h3 id="introduction">Introduction</h3>
+<p>BOSCO is a job submission manager designed to help researchers manage large numbers (~1000s) of job submissions to the different resources that they can access on a campus (initially a PBS cluster running Linux). This is release 1.2 of BOSCO, if you find any problems or need help installing or running BoSCO, please email <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#111;&#115;&#99;&#111;&#45;&#100;&#105;&#115;&#99;&#117;&#115;&#115;&#64;&#111;&#112;&#101;&#110;&#115;&#99;&#105;&#101;&#110;&#99;&#101;&#103;&#114;&#105;&#100;&#46;&#111;&#114;&#103;">&#98;&#111;&#115;&#99;&#111;&#45;&#100;&#105;&#115;&#99;&#117;&#115;&#115;&#64;&#111;&#112;&#101;&#110;&#115;&#99;&#105;&#101;&#110;&#99;&#101;&#103;&#114;&#105;&#100;&#46;&#111;&#114;&#103;</a> .</p>
+<p>It offers the following capabilities:</p>
+<ul>
+<li>Jobs are automatically resubmitted when they fail. The researcher does not need to babysit their jobs.</li>
+<li>Job submissions can be throttled to meet batch scheduler settings (e.g. only 10 jobs running concurrently). The researcher does not need to make multiple submissions. BOSCO handles that for them.</li>
+<li>BOSCO is designed to be flexible and allows jobs to be submitted to multiple clusters, with different job schedulers (e.g. PBS, SGE, LSF, HTCondor, SLURM*).</li>
+</ul>
+<p>The primary advantage for the researcher is that they only need to learn one job scheduler environment even if the clusters utilize different native environments.</p>
+<h2 id="bosco-multi-user_1">BOSCO multi user</h2>
+<p>This document is a bout BOSCO multi user, a version installed and managed on the submit host by a single user (administrator) and made available to all the users of that host.</p>
+<p>Here are some key differences:</p>
+<table>
+<thead>
+<tr>
+<th align="left">BOSCO (single user)</th>
+<th align="left">BOSCO multi user</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Installed by user</td>
+<td align="left">Installed as administrator (root)</td>
+</tr>
+<tr>
+<td align="left">User manages BOSCO&lt;br&gt; - BOSCO started as User&lt;br&gt; - Contributing clusters (BOSCO resources) added by User</td>
+<td align="left">Administrator manages BOSCO &lt;br&gt; - BOSCO started as root&lt;br&gt; - Contributing clusters added using a single service account</td>
+</tr>
+<tr>
+<td align="left">User must have SSH access on all BOSCO resources</td>
+<td align="left">SSH access via group service account (negotiated by admin)</td>
+</tr>
+<tr>
+<td align="left">Only User can submit jobs to the HTCondor pool of BOSCO</td>
+<td align="left">All the users on the system can submit jobs to the HTCondor pool of BOSCO</td>
+</tr>
+<tr>
+<td align="left">No choices because it must be easy to install and run for scientists without system administration experience</td>
+<td align="left">More flexible because there may be more customization to add BOSCO in the Campus Grid</td>
+</tr>
+</tbody>
+</table>
+<p>BoscoRequirements  </p>
+<h3 id="requirements">Requirements</h3>
+<p><span class="twiki-macro INCLUDE" section="BoscoGeneralRequirements">BoscoInstall 
+Networking<br />
+FirewallReq <span class="twiki-macro INCLUDE" section="Firewalls">
+BoscoInstall </p>
+<p>BoscoRequirements </p>
+<p>BoscoInstall   </p>
+<h3 id="how-to-install">How to Install</h3>
+<p>_ Creating the Bosco User As <code>root</code>, create a <code>bosco</code> user and a install directory (e.g. <code>/opt/bosco</code>) that all users can see and use (all users should be able to read, <code>bosco</code> should be able to write).   </p>
+<pre><code>  useradd bosco 
+  mkdir -p /opt/bosco 
+  chown bosco: /opt/bosco 
+</code></pre>
+
+<p>_ Download and Install BOSCO Perform the following steps as the newly created <code>bosco</code> user.</p>
+<ol>
+<li>
+<p>Download the BOSCO installer using one of these alternatives (browser, wget, curl) then continue with step two: * BOSCO comes in multiple flavors depending on your platform and the installer will download and install the correct flavor for you. Right click on <a href="ftp://ftp.cs.wisc.edu/condor/bosco/latest/boscoinstaller">this link</a>, select "save as" and save the file in the bosco user home directory. If your browser is saving the file in a different folder (e.g the Downloads folder), then move the file to the <code>bosco</code> user home directory before continuing with step 2. (any place is OK as long as you find the installer).</p>
+</li>
+<li>
+<p>Alternatively you can use <code>wget</code> and the download link:  </p>
+</li>
+</ol>
+<pre><code> cd ~ 
+  wget &lt;ftp://ftp.cs.wisc.edu/condor/bosco/latest/boscoinstaller&gt; 
+</code></pre>
+
+<ul>
+<li>If you have no <code>wget</code>, you can use <code>curl</code> to download: </li>
+</ul>
+<pre><code>  curl -o ~/boscoinstaller &lt;ftp://ftp.cs.wisc.edu/condor/bosco/latest/boscoinstaller&gt; 
+</code></pre>
+
+<ol>
+<li>Change the file permission and Install BOSCO as <code>bosco</code>:  </li>
+</ol>
+<pre><code>  chmod +x ~/boscoinstaller 
+  ~/boscoinstaller --prefix=/opt/bosco 
+</code></pre>
+
+<ol>
+<li>Remove the installer file:  </li>
+</ol>
+<pre><code>  rm ~/boscoinstaller 
+</code></pre>
+
+<pre><code> The local BOSCO user in this example is called uc3
+</code></pre>
+<pre><code>root@uc3-bosco # mkdir -p /opt/bosco 
+root@uc3-bosco # chown uc3 /opt/bosco  
+root@uc3-bosco # su - uc3 -bash-3.2$ ./boscoinstaller --prefix=/opt/bosco Downloading BOSCO from ftp://ftp.cs.wisc.edu/condor/bosco/latest/bosco-beta-x86_64_RedHat5.tar.gz 
+Installing BOSCO in /opt/bosco 
+Installing Condor from /tmp/tmp_zACZK/condor-7.9.2-76336-x86_64_RedHat5-stripped to /opt/bosco 
+Unable to find a valid Java installation 
+Java Universe will not work properly until the JAVA (and JAVA_MAXHEAP_ARGUMENT) parameters are set in the configuration file!
+
+Condor has been installed into: /opt/bosco
+
+Configured condor using these configuration files: global: /opt/bosco/etc/condor_config local: /opt/bosco/local.uc3-bosco/condor_config.local
+
+In order for Condor to work properly you must set your CONDOR_CONFIG environment variable to point to your Condor configuration file: /opt/bosco/etc/condor_config before running Condor commands/daemons. Created a script you can source to setup your Condor environment variables. This command must be run each time you log in or may be placed in your login scripts: source /opt/bosco/bosco_setenv
+
+Congratulations, you installed BOSCO succesfully! 
+-bash-3.2$ -bash-3.2$ source /opt/bosco/bosco_setenv 
+</code></pre>
+
+<p>_ Add BOSCO to the default environment Add BOSCO to the default environment of all your users:  </p>
+<pre><code>  cp /opt/bosco/bosco.sh /opt/bosco/bosco.csh /etc/profile.d/ 
+</code></pre>
+
+<p>This is not required but it is recommended, so users don't have to setup the environment each time they login.
+_ Setup BOSCO to start automatically Setup BOSCO to start automatically after a reboot. Here I'm using the name "condor". If there is already a system HTCondor, a different name, e.g. condor_bosco should be used: </p>
+<pre><code>cp /opt/bosco/etc/examples/condor.boot.generic /etc/init.d/condor   edit the values of CONDOR_CONFIG and CONDOR_CONFIG_VAL CONDOR_CONFIG=/opt/bosco/etc/condor_config CONDOR_CONFIG_VAL=/opt/bosco/bin/condor_config_val 
+
+chkconfig --level 235 condor on 
+</code></pre>
+
+<p>This is not required but it is recommended, so BOSCO will restart automatically after a reboot.</p>
+<p>BoscoInstall </p>
+<p>BoscoSetup   </p>
+<h3 id="how-to-use">How to Use</h3>
+<p>Now BOSCO is installed. To use it:</p>
+<ol>
+<li>Setup the environment</li>
+<li>Add all the desired clusters (at least one)</li>
+<li>Start BOSCO</li>
+<li>Submit a test job</li>
+<li>Submit a real job</li>
+</ol>
+<h3 id="setup-environment">Setup environment</h3>
+<p>If the administrator did not add BOSCO to the default environment (last step in the installation above), then an environment file must be sourced all the times you use BOSCO (start/stop/job submission or query, anything):</p>
+<pre><code>source /opt/bosco/bosco_setenv
+</code></pre>
+
+<h3 id="starting-bosco">Starting BOSCO</h3>
+<p>BOSCO has some persistent services that must be running. You'll have to start it at the beginning and probably after each reboot of your host. You should stop BOSCO before an upgrade and possibly before a shutdown of your host. If you will not use BOSCO anymore, uninstall will remove it from your system.</p>
+<p>To start BOSCO, as <strong>ROOT</strong>:  </p>
+<pre><code>  bosco_start 
+</code></pre>
+
+<p>Add a cluster to BOSCO Follow the following steps as the <strong>BOSCO</strong> user.</p>
+<p><span class="twiki-macro INCLUDE" section="BoscoAddResource">BoscoInstall 
+_ Submitting a test job You can send a simple test job to verify that the cluster added is working correctly. The following steps are as the <strong>BOSCO</strong> user.</p>
+<p>To send a BOSCO test job to the host <a href="mailto:%RED%username@mycluster-submit.mydomain%ENDCOLOR">%RED%username@mycluster-submit.mydomain%ENDCOLOR</a>% (name as listed in the output of <code>bosco_cluster --list</code>):</p>
+<ol>
+<li>Setup the environment appropriate for your shell as described in the setup environment section (above).</li>
+<li>For the cluster <a href="mailto:%RED%username@mycluster-submit.mydomain%ENDCOLOR">%RED%username@mycluster-submit.mydomain%ENDCOLOR</a>% (identical to output of <code>bosco_cluster --list</code>). Replace the parts in red:  </li>
+</ol>
+<p>bosco_cluster --test <a href="mailto:%RED%username@mycluster-submit.mydomain%ENDCOLOR">%RED%username@mycluster-submit.mydomain%ENDCOLOR</a>% </p>
+<pre><code>  $ bosco_cluster -t &lt;dweitzel@ff-grid.unl.edu&gt; &lt;dweitzel@ff-grid.unl.edu&gt; Testing ssh to &lt;dweitzel@ff-grid.unl.edu&gt;...Passed! Testing bosco submission...Passed! Checking for submission to remote pbs cluster (could take ~30 seconds)...Passed! Submission files for these jobs are in /home/dweitzel/bosco/local.localhocentos56/bosco-test Execution on the remote cluster could take a while...Exiting 
+</code></pre>
+
+<p>_ How to Stop and Remove To stop BOSCO, as <strong>root</strong> (remember, all the commands with a orange-red background require you to be root):  </p>
+<pre><code>  bosco_stop 
+</code></pre>
+
+<p>To uninstall BOSCO:</p>
+<ul>
+<li>First remove the startup script if you added them: </li>
+</ul>
+<pre><code>  rm /etc/profile.d/bosco.\*
+</code></pre>
+
+<ul>
+<li>To remove everything: installation directory, remote clusters and the BOSCO files in your <code>.bosco</code> and <code>.ssh</code> directories you can use:</li>
+</ul>
+<pre><code>  bosco_uninstall --all
+</code></pre>
+
+<ul>
+<li>To remove the remote clusters get the list and remove them one by one:  </li>
+</ul>
+<pre><code>  bosco_cluster --list
+</code></pre>
+
+<p>For each remote cluster </p>
+<pre><code>  bosco_cluster -r %RED%user@cluster_as_spelled_in_list%ENDCOLOR%
+</code></pre>
+
+<ul>
+<li>To remove only the installation directory: </li>
+</ul>
+<pre><code> bosco_uninstall
+</code></pre>
+
+<p>Please note: Uninstalling BOSCO installation directory removes the software but leaves the files in your <code>.bosco</code> and <code>.ssh</code> directories with all the information about the added clusters and the SSH keys. Files installed on the remote clusters are not removed either.
+_ How to Update BOSCO If you want to update BOSCO to a new version you have to follow the following steps.</p>
+<p>Please note: Some commands need to be run by root, and others by the bosco user</p>
+<ol>
+<li>setup BOSCO: </li>
+</ol>
+<pre><code>  source /opt/bosco/bosco_setenv
+</code></pre>
+
+<ol>
+<li>stop BOSCO: </li>
+</ol>
+<pre><code>  bosco_stop
+</code></pre>
+
+<ol>
+<li>remove the old BOSCO: </li>
+</ol>
+<pre><code>  bosco_uninstall
+</code></pre>
+
+<ol>
+<li>download and install the new BOSCO (see install section above) and re-add all the clusters in your setup:</li>
+<li>for each installed cluster (the list is returned by <code>bosco_cluster --list</code>):<ol>
+<li>remove the cluster:  </li>
+</ol>
+</li>
+</ol>
+<pre><code>  bosco_cluster --remove [%RED%username@mycluster-submit.mydomain.org%ENDCOLOR](mailto:%RED%username@mycluster-submit.mydomain.org%ENDCOLOR)% 
+</code></pre>
+
+<pre><code>2.  add the cluster:
+</code></pre>
+<pre><code>bosco_cluster --add [%RED%username@mycluster-submit.mydomain.org](mailto:%RED%username@mycluster-submit.mydomain.org) queue&lt;span class=&quot;twiki-macro ENDCOLOR&quot;&gt;  
+</code></pre>
+
+<ol>
+<li>start BOSCO: </li>
+</ol>
+<pre><code>  bosco_start
+</code></pre>
+
+<p>This will update the local installation and the software on the remote clusters  BoscoSetup </p>
+<p><span class="twiki-macro INCLUDE" section="BoscoJob">BoscoInstall </p>
+<h3 id="advanced-use">Advanced use</h3>
+<p>_ Flocking to the BOSCO submit host If you have a more complex Campus Grid environment you can flock from your submit hosts to the BOSCO submit host to have access to the resources available through BOSCO.</p>
+<p>On the BOSCO submit host:</p>
+<ul>
+<li>Edit <code>/opt/bosco/local.*/config/condor_config.factory</code> to add you submit host (fully qualified domain name or IP address) in the FLOCK_FROM line, e.g.: What hosts can run jobs to this cluster. FLOCK_FROM = %RED%yourname.yourdomain.org<span class="twiki-macro ENDCOLOR">  </li>
+</ul>
+<p>On your Campus Grid submit host add the BOSCO submit host in the FLOCK_TO entry of the Condor configuration, e.g. <code>/etc/condor/condor_config.local</code>:  What hosts can run jobs to this cluster. FLOCK_TO = %RED%bosco.uchicago.edu<span class="twiki-macro ENDCOLOR"> :11000?sock=collector </p>
+<p>Please note: that the BOSCO submit host is running on port 11000 and it is using the single port daemon.
+_ Querying the status of BOSCO If you have a monitoring system and you want to query BOSCO you need to know the following:</p>
+<ul>
+<li>The BOSCO submit host collector runs under the shared port collector on port 11000: <strong><code>bosco.yourdomain.org:11000?sock=collector</code></strong></li>
+<li>The host sending the query needs to be authorized to run the query</li>
+</ul>
+<p><span class="twiki-macro INCLUDE" section="BoscoAdvancedUseInstContent">BoscoInstall </p>
+<h3 id="troubleshooting">Troubleshooting</h3>
+<p>_ Useful Configuration and Log Files BOSCO underneath is using Condor. You can find all the Condor log files in <code>/opt/bosco/local.HOSTNAME/log</code> (supposing that <code>/opt/bosco</code> is the installation directory).</p>
+<p><span class="twiki-macro INCLUDE" section="BoscoTroubleshootingItems">BoscoInstall </p>
+<h3 id="get-helpsupport-to-get-assistance-you-can-send-an-email-to-amp98amp111amp115amp99amp111amp45amp100amp105amp115amp99amp117amp115amp115amp64amp111amp112amp101amp110amp115amp99amp105amp101amp110amp99amp101amp103amp114amp105amp100amp46amp111amp114amp103">Get Help/Support To get assistance you can send an email to <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#111;&#115;&#99;&#111;&#45;&#100;&#105;&#115;&#99;&#117;&#115;&#115;&#64;&#111;&#112;&#101;&#110;&#115;&#99;&#105;&#101;&#110;&#99;&#101;&#103;&#114;&#105;&#100;&#46;&#111;&#114;&#103;">&#98;&#111;&#115;&#99;&#111;&#45;&#100;&#105;&#115;&#99;&#117;&#115;&#115;&#64;&#111;&#112;&#101;&#110;&#115;&#99;&#105;&#101;&#110;&#99;&#101;&#103;&#114;&#105;&#100;&#46;&#111;&#114;&#103;</a></h3>
+<p><span class="twiki-macro INCLUDE" section="BoscoReferences">BoscoInstall </p>
+<h1 id="comments">Comments</h1>
+<p><span class="twiki-macro COMMENT" type="tableappend"> </p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../BoscoInstall/" class="btn btn-neutral" title="Bosco Installation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Open Science Grid</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/osg-bosco/docs" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../BoscoInstall/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+
+</body>
+</html>
