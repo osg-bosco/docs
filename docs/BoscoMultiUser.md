@@ -375,7 +375,8 @@ For example, in your Bosco submit script, add: <pre class="file">
 queue
 </pre>
 
-After you submit this job to Bosco, it will execute the [[#CustomScriptLocations][custom scripts]] with, in this example, =NumJobs= set in the environment equal to =100=.  The custom script can take advantage of these values.  For example, a PBS script can use the !NumJobs: <pre>
+After you submit this job to Bosco, it will execute the [[#CustomScriptLocations][custom scripts]] with, in this example, =NumJobs= set in the environment equal to =100=.  The custom script can take advantage of these values.  For example, a PBS script can use the !NumJobs: 
+<pre class="screen">
 #!/bin/sh
 
 echo "#PBS -l select=$NumJobs"
@@ -390,8 +391,8 @@ In order to enable flocking you must use an IP so that all the hosts you are flo
 Then you must setup FLOCK_FROM and the security configuration so that the communications are authorized.
 
 BOSCO has strong security settings. Here are two examples:
-   1 Using GSI authentication (a strong authentication method) you must provide and install X509 certificates, you must change the configuration <pre class="file">
-   
+   1 Using GSI authentication (a strong authentication method) you must provide and install X509 certificates, you must change the configuration 
+   <pre class="screen">
 Networking - If you did not already, remember that you need to set BOSCO not to use the loopback port
 
 NETWORK_INTERFACE =
