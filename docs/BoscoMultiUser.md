@@ -453,7 +453,8 @@ PASSWORD (.*) \1
 GSI (.*) anonymous
 FS (.*) \1
 </pre> Remember to enable and configure GSI authentication also on the host you are flocking form.
-   1 Relaxing BOSCO security setting to allow CLAIMTOBE authentication. This is not very secure. Use it only if you can trust all the machines on the network and remember to enable CLAIMTOBE also on the host you are flocking from %  <pre class="screen">#
+   1 Relaxing BOSCO security setting to allow CLAIMTOBE authentication. This is not very secure. Use it only if you can trust all the machines on the network and remember to enable CLAIMTOBE also on the host you are flocking from %  <pre class="screen">
+#
 # Networking - If you did not already, remember that you need to set BOSCO not to use the loopback port
 #
 NETWORK_INTERFACE =
