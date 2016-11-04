@@ -442,7 +442,7 @@ SEC_ADVERTISE_SCHEDD_METHODS = FS, PASSWORD, GSI, CLAIMTOBE
 
 ALLOW_DAEMON = $(ALLOW_DAEMON) condor_pool@*/* %RED%boscouser%ENDCOLOR%@*/* $(FULL_HOSTNAME) $(IP_ADDRESS)
 ALLOW_ADVERTISE_SCHEDD = %RED%boscouser%ENDCOLOR%@*/*
-</pre> %ENDTWISTY% and define or update the condor_mapfile (e.g. =$HOME/bosco/local.bosco/certs/condor_mapfile=) %TWISTY{%TWISTY_OPTS_DETAILED% showlink="Click to see the condor_mapfile" }%   <pre class="file">#
+</pre>    <pre class="screen">#
 GSI "^%RED%\/DC\=com\/DC\=DigiCert\-Grid\/O\=Open\ Science\ Grid\/OU\=Services\/CN\=sub\.mydomain\.edu%ENDCOLOR%$" %RED%boscouser@sub.mydomain.edu%ENDCOLOR%
 GSI "^%RED%\/DC\=com\/DC\=DigiCert\-Grid\/O\=Open\ Science\ Grid\/OU\=Services\/CN\=bosco\.mydomain\.edu%ENDCOLOR%$" %RED%boscouser%ENDCOLOR%
 
@@ -452,8 +452,8 @@ PASSWORD (.*) \1
 
 GSI (.*) anonymous
 FS (.*) \1
-</pre> %ENDTWISTY% Remember to enable and configure GSI authentication also on the host you are flocking form.
-   1 Relaxing BOSCO security setting to allow CLAIMTOBE authentication. This is not very secure. Use it only if you can trust all the machines on the network and remember to enable CLAIMTOBE also on the host you are flocking from %TWISTY{%TWISTY_OPTS_DETAILED% showlink="Click to see the configuration file" }%   <pre class="file">#
+</pre> Remember to enable and configure GSI authentication also on the host you are flocking form.
+   1 Relaxing BOSCO security setting to allow CLAIMTOBE authentication. This is not very secure. Use it only if you can trust all the machines on the network and remember to enable CLAIMTOBE also on the host you are flocking from %  <pre class="screen">#
 # Networking - If you did not already, remember that you need to set BOSCO not to use the loopback port
 #
 NETWORK_INTERFACE =
