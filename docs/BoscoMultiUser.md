@@ -341,7 +341,7 @@ In order to do that you have to:
 
 Many clusters limit the number of jobs that can be submitted to the scheduler.  For PBS, we are able to detect this limit.  For SGE and LSF, we are not able to detect this limit.  In the cases where we cannot find the limit, we set the maximum number of jobs very conservatively, to a maximum of 10.  This includes both the number of idle and running jobs to the cluster.
 
-The limit is specified in the condor config file =~/bosco/local.bosco/condor_config.local=, at the bottom.  Edit the value of the configuration variable =GRIDMANAGER_MAX_SUBMITTED_JOBS_PER_RESOURCE=
+The limit is specified in the condor config file ~/bosco/local.bosco/condor_config.local, at the bottom.  Edit the value of the configuration variable GRIDMANAGER_MAX_SUBMITTED_JOBS_PER_RESOURCE
 
 <pre class="file">
 GRIDMANAGER_MAX_SUBMITTED_JOBS_PER_RESOURCE = %RED%10%ENDCOLOR%
@@ -351,10 +351,10 @@ GRIDMANAGER_MAX_SUBMITTED_JOBS_PER_RESOURCE = %RED%10%ENDCOLOR%
 Bosco has the ability to add custom submit properties to every job submitted to a cluster.  On the cluster's login node (the BOSCO resource, the host you used at the end of the line when typing the =bosco_cluster --add= command), create the file 
 
 #CustomScriptLocations
-   * *PBS/SLURM* - =~/bosco/glite/bin/pbs_local_submit_attributes.sh=
-   * *Condor* - =~/bosco/glite/bin/condor_local_submit_attributes.sh=
-   * *SGE* (and other GE) - =~/bosco/glite/bin/sge_local_submit_attributes.sh=
-   * *LSF* - =~/bosco/glite/bin/lsf_local_submit_attributes.sh=
+   * *PBS/SLURM* - ~/bosco/glite/bin/pbs_local_submit_attributes.sh
+   * *Condor* - ~/bosco/glite/bin/condor_local_submit_attributes.sh
+   * *SGE* (and other GE) - ~/bosco/glite/bin/sge_local_submit_attributes.sh
+   * *LSF* - ~/bosco/glite/bin/lsf_local_submit_attributes.sh
 
 %IMPORTANT% This file is executed and the output is inserted into the submit script. I.e. It is not cat, use echo/cat statements in the script.
 
