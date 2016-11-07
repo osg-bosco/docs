@@ -334,7 +334,7 @@ Multi homed hosts are hosts with multiple Network Interfaces (aka dual-homed whe
 BOSCO configuration is tricky on multi-homed hosts. BOSCO requires the submit host to be able to connect back to the BOSCO host, so it must advertise an interface that is reachable from all the chosen submit hosts. E.g. a host with a NIC on a private network and one with a public IP address must advertise the public address if the submit hosts are outside of the private network. 
 In order to do that you have to:
    * make sure that the name returned by the command =/bin/hostname -f= is the name resolving in the public address (e.g. =host `hostname -f`= should return the public address). If not you should change it.
-   * edit =~/bosco/local.%RED%$HOST%ENDCOLOR%/condor_config.local= (HOST is the short host name) and add a line like =NETWORK_INTERFACE = xxx.xxx.xxx.xxx= , substituting xxx.xxx.xxx.xxx with the public IP address. This will tell BOSCO to use that address.
+   * edit ~/bosco/local.%RED%$HOST%ENDCOLOR%/condor_config.local (HOST is the short host name) and add a line like =NETWORK_INTERFACE = xxx.xxx.xxx.xxx= , substituting xxx.xxx.xxx.xxx with the public IP address. This will tell BOSCO to use that address.
 
 
 ## Modifying maximum number of submitted jobs to a resource
@@ -511,12 +511,12 @@ When you log back in after sourcing the setup as described in the [[#SetupEnviro
 
 ## Errors due to leftover files
 Bosco files on the submit host are in:
-   * =~/bosco/= - the release directory
-   * =~/.bosco/= - some service files
-   * =~/.ssh/= - the ssh key used by BOSCO
+   * ~/bosco/ - the release directory
+   * ~/.bosco/ - some service files
+   * ~/.ssh/ - the ssh key used by BOSCO
 
-If you used =bosco_uninstall= it will remove all BOSCO related files. If you removed BOSCO by hand you must pay attention.
-If the service key is still in =.ssh= but the other files are missing, during the execution of BOSCO commands you will get some unclear errors like 
+If you used bosco_uninstall it will remove all BOSCO related files. If you removed BOSCO by hand you must pay attention.
+If the service key is still in .ssh but the other files are missing, during the execution of BOSCO commands you will get some unclear errors like 
 **"IOError: [Errno 2] No such file or directory: '/home/marco/.bosco/.pass'"** , **"OSError: [Errno 5] Input/output error"** , all followed by:
 <pre>Password-less ssh to marco@itb2.uchicago.edu did NOT work, even after adding the ssh-keys.
 Does the remote resource allow password-less ssh?
@@ -524,7 +524,7 @@ Does the remote resource allow password-less ssh?
 
 If that happens you can remove the service files and the keys using:<pre>rm -r ~/.bosco
 rm ~/.ssh/bosco_key.rsa*</pre>
-and then re-add all the clusters with =bosco_cluster --add=.
+and then re-add all the clusters with bosco_cluster --add.
 
 ## Unable to download and prepare BOSCO for remote installation. 
 BOSCO can return this error:
@@ -533,7 +533,7 @@ BOSCO can return this error:
 You can check 1 byy downloading BOSCO on your BOSCO submit host.
 To check 2 you have to login on the BOSCO resource: =df= will tell you you some disks are full, with =hostname -f= you can check if the name is different form the one that you used to login with ssh. If the name differs probably you are using a cluster with multiple login nodes and you must use only one for BOSCO. Se the second "IMPORTANT" note in the [[#AddResourceSection][section to add a cluster to BOSCO]] (above).
 
-If you see errors similar to the one below while executing ==bosco_cluster --add==:
+If you see errors similar to the one below while executing *bosco_cluster --add*:
 <pre class="screen">
 Downloading for USER@RESOURCE
 Unpacking.tar: Cannot save working directory 
