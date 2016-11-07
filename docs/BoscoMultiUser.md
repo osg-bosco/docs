@@ -146,7 +146,7 @@ If you have no `wget`, you can use `curl` to download:
 ```
 
 
-1.  Remove the installer file:  
+2.  Remove the installer file:  
 
 
 ```
@@ -278,12 +278,12 @@ Please note: Some commands need to be run by root, and others by the bosco user
 ```
 4.  download and install the new BOSCO (see install section above) and re-add all the clusters in your setup:
 5.  for each installed cluster (the list is returned by `bosco_cluster --list`):
-    1.  remove the cluster:  
+    i.  remove the cluster:  
     
 ```
   bosco_cluster --remove [%RED%username@mycluster-submit.mydomain.org%ENDCOLOR](mailto:%RED%username@mycluster-submit.mydomain.org%ENDCOLOR)% 
 ```
-     2.  add the cluster:  
+     ii.  add the cluster:  
 ```
 bosco_cluster --add [%RED%username@mycluster-submit.mydomain.org](mailto:%RED%username@mycluster-submit.mydomain.org) queue<span class="twiki-macro ENDCOLOR">  
 ```
@@ -453,23 +453,23 @@ PASSWORD (.*) \1
 GSI (.*) anonymous
 FS (.*) \1
 </pre> Remember to enable and configure GSI authentication also on the host you are flocking form.
-   1 Relaxing BOSCO security setting to allow CLAIMTOBE authentication. This is not very secure. Use it only if you can trust all the machines on the network and remember to enable CLAIMTOBE also on the host you are flocking from %  <pre class="screen">
-#
-# Networking - If you did not already, remember that you need to set BOSCO not to use the loopback port
-#
+   1 Relaxing BOSCO security setting to allow CLAIMTOBE authentication. This is not very secure. Use it only if you can trust all the machines on the network and remember to enable CLAIMTOBE also on the host you are flocking from  <pre class="screen">
+\#
+\# Networking - If you did not already, remember that you need to set BOSCO not to use the loopback port
+\#
 NETWORK_INTERFACE =
 
-#
-# Flocking configuration
-# 
+\#
+\# Flocking configuration
+\#
 FLOCK_FROM = %RED%host_from.domain%ENDCOLOR%
 
-#
-# Security definitions overrides
-# 
+\#
+\# Security definitions overrides
+\# 
 SEC_DEFAULT_ENCRYPTION = OPTIONAL
 SEC_DEFAULT_INTEGRITY = PREFERRED
-# To allow status read
+\# To allow status read
 SEC_READ_INTEGRITY = OPTIONAL
 
 SEC_CLIENT_AUTHENTICATION_METHODS = FS, PASSWORD, CLAIMTOBE
