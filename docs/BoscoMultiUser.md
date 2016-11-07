@@ -324,7 +324,7 @@ BOSCO is using the HTCondor [[http://research.cs.wisc.edu/htcondor/manual/latest
 USE_SHARED_PORT = True
 SHARED_PORT_ARGS = -p %RED%11000%ENDCOLOR%
 </pre>
-%NOTE% You need to restart BOSCO after you change the configuration (=bosco_stop; bosco_start=).
+!!! note You need to restart BOSCO after you change the configuration (=bosco_stop; bosco_start=).
 
 If you are referring to this BOSCO pool (e.g. for flocking) you'll need to use a string like: =%RED%your_host.domain%ENDCOLOR%:%RED%11000%ENDCOLOR%?sock=collector= .
 Replace host and port with the correct ones.
