@@ -363,12 +363,12 @@ chkconfig --level 235 condor on
 <p>Add a cluster to BOSCO Follow the following steps as the <strong>BOSCO</strong> user.</p>
 <p><strong>Submitting a test job</strong>
 You can send a simple test job to verify that the cluster added is working correctly. The following steps are as the <strong>BOSCO</strong> user.</p>
-<p>To send a BOSCO test job to the host <a href="mailto:%RED%username@mycluster-submit.mydomain%ENDCOLOR">%RED%username@mycluster-submit.mydomain%ENDCOLOR</a>% (name as listed in the output of <code>bosco_cluster --list</code>):</p>
+<p>To send a BOSCO test job to the host <a href="mailto:<span style="color:red">username@mycluster-submit.mydomain%ENDCOLOR"><span style="color:red">username@mycluster-submit.mydomain%ENDCOLOR</a>% (name as listed in the output of <code>bosco_cluster --list</code>):</p>
 <ol>
 <li>Setup the environment appropriate for your shell as described in the setup environment section (above).</li>
-<li>For the cluster <a href="mailto:%RED%username@mycluster-submit.mydomain%ENDCOLOR">%RED%username@mycluster-submit.mydomain%ENDCOLOR</a>% (identical to output of <code>bosco_cluster --list</code>). Replace the parts in red:  </li>
+<li>For the cluster <a href="mailto:<span style="color:red">username@mycluster-submit.mydomain%ENDCOLOR"><span style="color:red">username@mycluster-submit.mydomain%ENDCOLOR</a>% (identical to output of <code>bosco_cluster --list</code>). Replace the parts in red:  </li>
 </ol>
-<p>bosco_cluster --test <a href="mailto:%RED%username@mycluster-submit.mydomain%ENDCOLOR">%RED%username@mycluster-submit.mydomain%ENDCOLOR</a>% </p>
+<p>bosco_cluster --test <a href="mailto:<span style="color:red">username@mycluster-submit.mydomain%ENDCOLOR"><span style="color:red">username@mycluster-submit.mydomain%ENDCOLOR</a>% </p>
 <pre><code>  $ bosco_cluster -t &lt;dweitzel@ff-grid.unl.edu&gt; &lt;dweitzel@ff-grid.unl.edu&gt; Testing ssh to &lt;dweitzel@ff-grid.unl.edu&gt;...Passed! Testing bosco submission...Passed! Checking for submission to remote pbs cluster (could take ~30 seconds)...Passed! Submission files for these jobs are in /home/dweitzel/bosco/local.localhocentos56/bosco-test Execution on the remote cluster could take a while...Exiting 
 </code></pre>
 
@@ -391,7 +391,7 @@ To stop BOSCO, as <strong>root</strong> (remember, all the commands with a orang
 </code></pre>
 
 <p>For each remote cluster </p>
-<pre><code>  bosco_cluster -r %RED%user@cluster_as_spelled_in_list%ENDCOLOR%
+<pre><code>  bosco_cluster -r <span style="color:red">user@cluster_as_spelled_in_list</span>
 </code></pre>
 
 <p><strong>To remove only the installation directory:</strong></p>
@@ -423,12 +423,12 @@ If you want to update BOSCO to a new version you have to follow the following st
 <li>for each installed cluster (the list is returned by <code>bosco_cluster --list</code>):
     i.  remove the cluster:  </li>
 </ol>
-<pre><code>  bosco_cluster --remove [%RED%username@mycluster-submit.mydomain.org%ENDCOLOR](mailto:%RED%username@mycluster-submit.mydomain.org%ENDCOLOR)% 
+<pre><code>  bosco_cluster --remove [<span style="color:red">username@mycluster-submit.mydomain.org%ENDCOLOR](mailto:<span style="color:red">username@mycluster-submit.mydomain.org%ENDCOLOR)% 
 </code></pre>
 
 <pre><code> ii.  add the cluster:
 </code></pre>
-<pre><code>bosco_cluster --add [%RED%username@mycluster-submit.mydomain.org](mailto:%RED%username@mycluster-submit.mydomain.org) queue&lt;span class=&quot;twiki-macro ENDCOLOR&quot;&gt;  
+<pre><code>bosco_cluster --add [<span style="color:red">username@mycluster-submit.mydomain.org](mailto:<span style="color:red">username@mycluster-submit.mydomain.org) queue&lt;span class=&quot;twiki-macro ENDCOLOR&quot;&gt;  
 </code></pre>
 
 <ol>
@@ -444,9 +444,9 @@ If you want to update BOSCO to a new version you have to follow the following st
 If you have a more complex Campus Grid environment you can flock from your submit hosts to the BOSCO submit host to have access to the resources available through BOSCO.</p>
 <p>On the BOSCO submit host:</p>
 <ul>
-<li>Edit <code>/opt/bosco/local.*/config/condor_config.factory</code> to add you submit host (fully qualified domain name or IP address) in the FLOCK_FROM line, e.g.: What hosts can run jobs to this cluster. FLOCK_FROM = %RED%yourname.yourdomain.org<span class="twiki-macro ENDCOLOR">  </li>
+<li>Edit <code>/opt/bosco/local.*/config/condor_config.factory</code> to add you submit host (fully qualified domain name or IP address) in the FLOCK_FROM line, e.g.: What hosts can run jobs to this cluster. FLOCK_FROM = <span style="color:red">yourname.yourdomain.org<span class="twiki-macro ENDCOLOR">  </li>
 </ul>
-<p>On your Campus Grid submit host add the BOSCO submit host in the FLOCK_TO entry of the Condor configuration, e.g. <code>/etc/condor/condor_config.local</code>:  What hosts can run jobs to this cluster. FLOCK_TO = %RED%bosco.uchicago.edu<span class="twiki-macro ENDCOLOR"> :11000?sock=collector </p>
+<p>On your Campus Grid submit host add the BOSCO submit host in the FLOCK_TO entry of the Condor configuration, e.g. <code>/etc/condor/condor_config.local</code>:  What hosts can run jobs to this cluster. FLOCK_TO = <span style="color:red">bosco.uchicago.edu<span class="twiki-macro ENDCOLOR"> :11000?sock=collector </p>
 <p>Please note: that the BOSCO submit host is running on port 11000 and it is using the single port daemon.</p>
 <p><strong>Querying the status of BOSCO</strong>
 If you have a monitoring system and you want to query BOSCO you need to know the following:</p>
@@ -458,19 +458,19 @@ If you have a monitoring system and you want to query BOSCO you need to know the
 <p class="admonition-title">Note</p>
 </div>
 <p>You need to restart BOSCO after you change the configuration (=bosco_stop; bosco_start=).</p>
-<p>If you are referring to this BOSCO pool (e.g. for flocking) you'll need to use a string like: =%RED%your_host.domain%ENDCOLOR%:%RED%11000%ENDCOLOR%?sock=collector= .
+<p>If you are referring to this BOSCO pool (e.g. for flocking) you'll need to use a string like: =<span style="color:red">your_host.domain</span>:<span style="color:red">11000</span>?sock=collector= .
 Replace host and port with the correct ones.</p>
 <h2 id="multi-homed-hosts">Multi homed hosts</h2>
 <p>Multi homed hosts are hosts with multiple Network Interfaces (aka dual-homed when they have 2 NICs).
 BOSCO configuration is tricky on multi-homed hosts. BOSCO requires the submit host to be able to connect back to the BOSCO host, so it must advertise an interface that is reachable from all the chosen submit hosts. E.g. a host with a NIC on a private network and one with a public IP address must advertise the public address if the submit hosts are outside of the private network. 
 In order to do that you have to:
    * make sure that the name returned by the command =/bin/hostname -f= is the name resolving in the public address (e.g. =host <code>hostname -f</code>= should return the public address). If not you should change it.
-   * edit ~/bosco/local.%RED%$HOST%ENDCOLOR%/condor_config.local (HOST is the short host name) and add a line like =NETWORK_INTERFACE = xxx.xxx.xxx.xxx= , substituting xxx.xxx.xxx.xxx with the public IP address. This will tell BOSCO to use that address.</p>
+   * edit ~/bosco/local.<span style="color:red">$HOST</span>/condor_config.local (HOST is the short host name) and add a line like =NETWORK_INTERFACE = xxx.xxx.xxx.xxx= , substituting xxx.xxx.xxx.xxx with the public IP address. This will tell BOSCO to use that address.</p>
 <h2 id="modifying-maximum-number-of-submitted-jobs-to-a-resource">Modifying maximum number of submitted jobs to a resource</h2>
 <p>Many clusters limit the number of jobs that can be submitted to the scheduler.  For PBS, we are able to detect this limit.  For SGE and LSF, we are not able to detect this limit.  In the cases where we cannot find the limit, we set the maximum number of jobs very conservatively, to a maximum of 10.  This includes both the number of idle and running jobs to the cluster.</p>
 <p>The limit is specified in the condor config file ~/bosco/local.bosco/condor_config.local, at the bottom.  Edit the value of the configuration variable GRIDMANAGER_MAX_SUBMITTED_JOBS_PER_RESOURCE</p>
 <pre class="file">
-GRIDMANAGER_MAX_SUBMITTED_JOBS_PER_RESOURCE = %RED%10%ENDCOLOR%
+GRIDMANAGER_MAX_SUBMITTED_JOBS_PER_RESOURCE = <span style="color:red">10</span>
 </pre>
 
 <h2 id="custom-submit-properties">Custom submit properties</h2>
@@ -482,7 +482,7 @@ GRIDMANAGER_MAX_SUBMITTED_JOBS_PER_RESOURCE = %RED%10%ENDCOLOR%
 <li><em>SGE</em> (and other GE) - ~/bosco/glite/bin/sge_local_submit_attributes.sh</li>
 <li><em>LSF</em> - ~/bosco/glite/bin/lsf_local_submit_attributes.sh</li>
 </ul>
-<p>%IMPORTANT% This file is executed and the output is inserted into the submit script. I.e. It is not cat, use echo/cat statements in the script.</p>
+<p><span style="color:red">IMPORTANT</span> This file is executed and the output is inserted into the submit script. I.e. It is not cat, use echo/cat statements in the script.</p>
 <p>Below is an example =pbs_local_submit_attributes.sh= script which will cause every job submitted to this cluster through Bosco to request 1 node with 8 cores:
 <pre></p>
 <h1 id="binsh">!/bin/sh</h1>
@@ -492,7 +492,7 @@ GRIDMANAGER_MAX_SUBMITTED_JOBS_PER_RESOURCE = %RED%10%ENDCOLOR%
 <p>You may also pass parameters to the custom scripts by adding a special parameter to the Bosco submit script.</p>
 <p>For example, in your Bosco submit script, add: <pre class="file">
 ...
-%RED%+remote_cerequirements = NumJobs == 100%ENDCOLOR%
+<span style="color:red">+remote_cerequirements = NumJobs == 100</span>
 ...
 queue
 </pre></p>
@@ -513,11 +513,11 @@ Networking - If you did not already, remember that you need to set BOSCO not to 
 <p>NETWORK_INTERFACE =</p>
 <p>Hosts definition</p>
 <p>BOSCO host
-H_BOSCO = %RED%bosco.mydomain.edu%ENDCOLOR%
-H_BOSCO_DN = %RED%/DC=com/DC=DigiCert-Grid/O=Open Science Grid/OU=Services/CN=bosco.mydomain.edu%ENDCOLOR%</p>
+H_BOSCO = <span style="color:red">bosco.mydomain.edu</span>
+H_BOSCO_DN = <span style="color:red">/DC=com/DC=DigiCert-Grid/O=Open Science Grid/OU=Services/CN=bosco.mydomain.edu</span></p>
 <p>submit host (flocking to BOSCO host)
-H_SUB = %RED%sub.mydomain.edu%ENDCOLOR%
-H_SUB_DN = %RED%/DC=com/DC=DigiCert-Grid/O=Open Science Grid/OU=Services/CN=sub.mydomain.edu%ENDCOLOR%</p>
+H_SUB = <span style="color:red">sub.mydomain.edu</span>
+H_SUB_DN = <span style="color:red">/DC=com/DC=DigiCert-Grid/O=Open Science Grid/OU=Services/CN=sub.mydomain.edu</span></p>
 <p>Flocking configuration</p>
 <p>FLOCK_FROM = $(FLOCK_FROM) $(H_SUB)</p>
 <p>Security definitions</p>
@@ -541,11 +541,11 @@ SEC_CLIENT_AUTHENTICATION_METHODS = FS, PASSWORD, GSI, CLAIMTOBE
 SEC_DAEMON_AUTHENTICATION_METHODS = FS, PASSWORD, GSI, CLAIMTOBE
 SEC_WRITE_AUTHENTICATION_METHODS = FS, PASSWORD, GSI, CLAIMTOBE
 SEC_ADVERTISE_SCHEDD_METHODS = FS, PASSWORD, GSI, CLAIMTOBE</p>
-<p>ALLOW_DAEMON = $(ALLOW_DAEMON) condor_pool@<em>/</em> %RED%boscouser%ENDCOLOR%@<em>/</em> $(FULL_HOSTNAME) $(IP_ADDRESS)
-ALLOW_ADVERTISE_SCHEDD = %RED%boscouser%ENDCOLOR%@<em>/</em>
+<p>ALLOW_DAEMON = $(ALLOW_DAEMON) condor_pool@<em>/</em> <span style="color:red">boscouser</span>@<em>/</em> $(FULL_HOSTNAME) $(IP_ADDRESS)
+ALLOW_ADVERTISE_SCHEDD = <span style="color:red">boscouser</span>@<em>/</em>
 </pre>    <pre class="screen">#
-GSI "^%RED%\/DC\=com\/DC\=DigiCert-Grid\/O\=Open\ Science\ Grid\/OU\=Services\/CN\=sub.mydomain.edu%ENDCOLOR%$" %RED%boscouser@sub.mydomain.edu%ENDCOLOR%
-GSI "^%RED%\/DC\=com\/DC\=DigiCert-Grid\/O\=Open\ Science\ Grid\/OU\=Services\/CN\=bosco.mydomain.edu%ENDCOLOR%$" %RED%boscouser%ENDCOLOR%</p>
+GSI "^<span style="color:red">\/DC\=com\/DC\=DigiCert-Grid\/O\=Open\ Science\ Grid\/OU\=Services\/CN\=sub.mydomain.edu</span>$" <span style="color:red">boscouser@sub.mydomain.edu</span>
+GSI "^<span style="color:red">\/DC\=com\/DC\=DigiCert-Grid\/O\=Open\ Science\ Grid\/OU\=Services\/CN\=bosco.mydomain.edu</span>$" <span style="color:red">boscouser</span></p>
 <p>SSL (.<em>) ssl@unmapped
 CLAIMTOBE (.</em>) \1
 PASSWORD (.*) \1</p>
@@ -560,7 +560,7 @@ NETWORK_INTERFACE =</p>
 <p>#
 # Flocking configuration
 #
-FLOCK_FROM = %RED%host_from.domain%ENDCOLOR%</p>
+FLOCK_FROM = <span style="color:red">host_from.domain</span></p>
 <p>#
 # Security definitions overrides
 # 
@@ -569,7 +569,7 @@ SEC_DEFAULT_INTEGRITY = PREFERRED
 # To allow status read
 SEC_READ_INTEGRITY = OPTIONAL</p>
 <p>SEC_CLIENT_AUTHENTICATION_METHODS = FS, PASSWORD, CLAIMTOBE</p>
-<p>ALLOW_ADVERTISE_SCHEDD = */%RED%IP_of_the_host_in_flock_from%ENDCOLOR% $(FULL_HOSTNAME) $(IP_ADDRESS) $(ALLOW_DAEMON)</p>
+<p>ALLOW_ADVERTISE_SCHEDD = */<span style="color:red">IP_of_the_host_in_flock_from</span> $(FULL_HOSTNAME) $(IP_ADDRESS) $(ALLOW_DAEMON)</p>
 <p>SEC_DAEMON_AUTHENTICATION = PREFERRED
 SEC_DAEMON_INTEGRITY = PREFERRED
 SEC_DAEMON_AUTHENTICATION_METHODS = FS,PASSWORD,CLAIMTOBE
