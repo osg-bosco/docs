@@ -780,11 +780,6 @@ To get assistance you can send an email to bosco-discuss@opensciencegrid.org
  - [Quick start guide to Bosco](BoscoQuickStart)
  - [BoscoR](BoscoR)
 
-Campus Grids related documents:
-
- - https://twiki.grid.iu.edu/bin/view/CampusGrids
- - https://twiki.grid.iu.edu/bin/view/Documentation/CampusFactoryInstall
-
 Condor documents:
 
  -  Condor manual: http://research.cs.wisc.edu/condor/manual/
