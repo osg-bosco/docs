@@ -8,6 +8,15 @@ pages:
   - 'Introduction': 'index.md'
   - 'Bosco Installation': 'BoscoInstall.md'
   - 'Bosco MultiUser Installation': 'BoscoMultiUser.md'
+  - 'Bosco Quick Start': 'BoscoQuickStart.md'
+  - 'Bosco tests for developers and testers': 'TestBoSCO.md'
+  - 'BoscoR': 'BoscoR.md'
+  - 'BOSCO Roadmap (planned and desired features)': 'BoscoRoadmap.md'
+  - 'BOSCO version 0': 'BoSCOv0.md'
+  - 'BOSCO version 1': 'BoSCOv1.md'
+  - 'BOSCO version 1.1': 'BoSCOv1p1.md'
+  - 'BOSCO version 1.2': 'BoSCOv1p2.md'
+  - 'CICiForum': 'CICiForum130418.md'
 
 extra_css: 
   - css/extra.css
