@@ -29,19 +29,12 @@ native environments.
 
 
 
-
 ## BOSCO definitions, versions and documents 
 
-<!-- Inser Image Here 
-&lt;img
-src="%ATTACHURLPATH%/bosco-submit\_and\_resource.jpg"
-alt="bosco-submit\_and\_resource.jpg" width='378' height='399' /&gt;
--->
-
 - The BOSCO submit node is the host where BOSCO is installed and where
-user's login to submit jobs via BOSCO. 
+users login to submit jobs via BOSCO. 
 - The multiple clusters added to
-BOSCO (i.e. where the user's can submit jobs via BOSCO) are referred as
+BOSCO (i.e. where the user can submit jobs via BOSCO) are referred as
 BOSCO resources. 
 - BOSCO resources can be a traditional cluster or a pool
 of resources connected via HTCondor, another BOSCO installation, Grid,
@@ -55,11 +48,7 @@ BOSCO resource. Adding, testing and removing BOSCO resources is part of
 the BOSCO configuration.
 
 [BOSCO Single User](BoscoInstall) allows a researcher to install BOSCO
-in her/his (non-privileged) account, to configure it and to use it. If
-you plan (at least initially) to connect a single cluster (BOSCO Single
-User Single Cluster) then use the [BOSCO Quick Start
-Guide](BoscoQuickStart). Otherwise, to install and configure BOSCO
-Single-user read [BOSCO Single User Installation](BoscoInstall).
+in her/his (non-privileged) account, to configure it and to use it.
 
 [BOSCO Multi User](BoscoMultiUser) is installed, configured and started
 on a host by the system administrator (root) and is available to all the
@@ -137,7 +126,6 @@ use BOSCO (start/stop/job submission or query, anything):
 source ~/bosco/bosco_setenv
 ```
 
-<!-- <span class="twiki-macro INCLUDE" section="BoscoJob">BoscoInstall</span> -->
 
 ## Troubleshooting
 
@@ -158,9 +146,4 @@ BoscoMultiUser
 
 ## Get Help/Support
 To get assistance you can send an email to <bosco-discuss@opensciencegrid.org>
-
-<!--
-<span class="twiki-macro INCLUDE"
-section="BoscoReferences">BoscoInstall</span>
--->
 
