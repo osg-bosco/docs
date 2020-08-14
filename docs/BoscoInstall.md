@@ -19,58 +19,51 @@ It offers the following capabilities:
     for them.
 -   BOSCO is designed to be flexible and allows jobs to be submitted to
     multiple clusters, with different job schedulers (e.g. PBS, LSF,
-    SGE, HTCondor, SLURM\*).
+    SGE, HTCondor, SLURM*).
+
+\* SLURM support is via its PBS emulation
 
 The primary advantage for the researcher is that they only need to learn
 one job scheduler environment even if the clusters utilize different
 native environments.
 
-\* SLURM support is via its PBS emulation
 
 This document explains how to install, configure and use BOSCO for a
 single user. 
 
 ## Requirements
 
-* **BOSCO Submit-node**
-:   This is the system that the researcher uses to submit jobs. In
+* **BOSCO Submit-node**: This is the system that the researcher uses to submit jobs. In
     general it can be the user's laptop, workstation, or it can be
     another system that the user logs into for submitting jobs to
     the cluster. **There can not be any Condor collector running on the
     submit node**, otherwise it will conflict with Bosco.
 
-* **BOSCO resource (aka Cluster) submit-node**
-:   This is the node that you normally login to on the PBS, SGE, LSF,
+* **BOSCO resource (aka Cluster) submit-node**: This is the node that you normally login to on the PBS, SGE, LSF,
     SLURM or HTCondor cluster (the BOSCO resource that you'd like
     to add).
 
-  * **PBS flavors supported**
-:   Torque and PBSPro
+    * **PBS flavors supported**: Torque and PBSPro
 
-  * **HTCondor flavors supported**
-:   HTCondor 7.6 or later
+    * **HTCondor flavors supported**: HTCondor 7.6 or later
 
-  * **SGE flavors supported**
-:   no special requirements (Sun Grid Engine and other Grid Engine
+    * **SGE flavors supported**: no special requirements (Sun Grid Engine and other Grid Engine
     versions supported)
 
-  * **LSF flavors**
-:   no special requirements
+    * **LSF flavors**: no special requirements
 
-  * **SLURM flavors**
-:   no special requirements
+    * **SLURM flavors**: no special requirements
 
-**BOSCO resource (aka Cluster)**
-:   This is the remote cluster that jobs will execute on (the
+* **BOSCO resource (aka Cluster)**: This is the remote cluster that jobs will execute on (the
     BOSCO resource). The Cluster submit-node is a node belonging to
     this cluster. The nodes where jobs run are referred as worker nodes.
     All the cluster needs:
 
- * **Shared Filesystem**
-    :   The Cluster needs a shared home filesystem (if the Cluster has         no shared filesystem only Grid universe jobs can be sent to it)
+    * **Shared Filesystem**: The Cluster needs a shared home filesystem (if the Cluster has no shared filesystem only Grid universe jobs can be sent to it)
 
- * **Network Access**
-    :   The worker nodes need to have access to the submit host. The         worker nodes can be behind a         [NAT](https://en.wikipedia.org/wiki/Network_address_translation)         between the worker nodes and the submit host.
+    * **Network Access**: The worker nodes need to have access to the submit host. The worker nodes
+    can be behind a [NAT](https://en.wikipedia.org/wiki/Network_address_translation)
+    between the worker nodes and the submit host.
 
 !!! note 
     The BOSCO resource requirements
@@ -84,17 +77,17 @@ single user.
 BOSCO can be used as part of a more complex Condor setup (with flocking
 or multiple pools). Whatever the setup:
 
--   the BOSCO host needs connectivity to the cluster submit nodes of the
+* the BOSCO host needs connectivity to the cluster submit nodes of the
     BOSCO resources
--   the worker nodes of the BOSCO resources (running the jobs, e.g. the
+* the worker nodes of the BOSCO resources (running the jobs, e.g. the
     nodes in the PBS cluster) must have network connectivity to the jobs
     submit node (the BOSCO host or a different Condor schedd flocking
     into it)
     
 
-## Networking
+### Networking
 
-### BOSCO submit host
+#### BOSCO submit host
 
 The BOSCO submit host requires no ports open for `universe = grid` jobs.  For 
 `universe = vanilla` jobs, port 11000 is required.
@@ -109,7 +102,7 @@ The BOSCO submit host requires no ports open for `universe = grid` jobs.  For
     use a port different from 11000, you can edit the BOSCO configuration.
 
 
-### BOSCO Resources
+#### BOSCO Resources
 
 The cluster login node requires port 22 from the BOSCO submit host.  BOSCO will
 use the SSH protocol to communicate with the login node.
@@ -123,15 +116,12 @@ BOSCO submit host is required.
 
 ### Installation Procedure
 
-1. [Download](http://bosco.opensciencegrid.org/download/) Bosco from
+1. [Download](https://research.cs.wisc.edu/htcondor/bosco/latest/boscoinstaller) Bosco from
     the bosco website.
-2. Untar Bosco from the command line:
-
-        $ cd Downloads   
-        $ tar xzf boscoinstaller.tar.gz
 
 1. Run the installer:
 
+        $ cd Downloads   
         $ python boscoinstaller
 
 
@@ -337,8 +327,7 @@ This is a simple bash script, called *myjob.sh*:
     date 
     id 
     whoami 
-
-## Final steps
+    # Final steps
 
 ### Example Submission File
 
@@ -349,7 +338,7 @@ All the other steps, job file creation, job submission and checking the jobs, ar
 
 *Use one or the other*
 
-### Direct Job submission example
+#### Direct Job submission example
 
 Here is an example submission file for direct submission.  Copy it to a file, *example.condor*:
 
@@ -370,8 +359,7 @@ The type of cluster that you are submitting to, pbs, lsf, sge, or condor, must b
 
 
 ### Job Submission
-Si
-ubmit the job file *example.condor* with the *condor_submit* command:
+Submit the job file *example.condor* with the *condor_submit* command:
 
     $ condor_submit example.condor
 
@@ -408,7 +396,6 @@ Another method of monitoring a job is to check the job's *log*, a human readable
 Once the job completes BOSCO will transfer back standard output, standard error and the output files (if specified in the submit file), e.g. the job above will create stdout and stderr files (unique for each submission) and a file *myout-file-10* in the directory where the *condor_submit* command was executed.
 
 
-%STARTSECTION{"BoscoCommands"}%
 ## Command summary
 
 User commands:
@@ -438,12 +425,11 @@ Administration commands:
 Manually transfer output data from batch system.
 
 
-%STARTSECTION{"BoscoMultiCluster"}%
 ## Multi-Cluster Bosco
 
 In order to use Multi-Cluster Bosco, you must make 1 configuration change.  The multi-cluster also requires a public IP address.
 
-#### Changing the Bosco Configuration for Multi-Cluster
+### Changing the Bosco Configuration for Multi-Cluster
 
 BOSCO by default is using the loopback IP address.  You must change the configuration to listen on the public interface.  You can do this by editing the configuration file *$HOME/bosco/local.bosco/config/condor_config.factory*, adding anywhere the line:
 
@@ -451,7 +437,7 @@ BOSCO by default is using the loopback IP address.  You must change the configur
 
 By setting this, you are enabling Bosco's smart interface detection which will automatically choose and listen on the public interface.
 
-#### Glidein Job submission example
+### Glidein Job submission example
 
 You can submit a regular HTCondor vanilla job to BOSCO. The Campus Factory, a component within BOSCO, will take care to run it on the different clusters that you added and to transfer the input and output files as needed.
 Here follow a simple example. The Condor team provides [many great tutorials](http://research.cs.wisc.edu/condor/tutorials/) to learn more.
@@ -472,12 +458,9 @@ Here is an example of  a vanilla submission file (using glideins).  Copy it to a
     The BOSCO submit host needs to satisfy these additional [Firewall and Network requirements](#networking) to be able to submit and run vanilla jobs. Those requirement include being reachable by all BOSCO resources. 
 
 
-%STARTSECTION{"BoscoAdvancedUse"}%
 ## Advanced use
 
-%STARTSECTION{"BoscoAdvancedUseInstContent"}%
-
-#### Changing the BOSCO port
+### Changing the BOSCO port
 
 BOSCO is using the HTCondor [Shared port daemon](https://htcondor.readthedocs.io/en/latest/admin-manual/networking.html#reducing-port-usage-with-the-condor-shared-port-daemon).
 This means that all the communication are coming to the same port, by default 11000. If that port is taken (already bound) you can change the port used by BOSCO by editing the file *$HOME/bosco/local.bosco/config/condor_config.factory*.
@@ -493,7 +476,7 @@ You can change the port passed to the shared port daemon:
 If you are referring to this BOSCO pool (e.g. for flocking) you'll need to use a string like: *your_host.domain:11000?sock=collector* .
 Replace host and port with the correct ones.
 
-#### Multi homed hosts
+### Multi homed hosts
 
 Multi homed hosts are hosts with multiple Network Interfaces (aka dual-homed when they have 2 NICs).
 BOSCO configuration is tricky on multi-homed hosts. BOSCO requires the submit host to be able to connect back to the BOSCO host, so it must advertise an interface that is reachable from all the chosen submit hosts. E.g. a host with a NIC on a private network and one with a public IP address must advertise the public address if the submit hosts are outside of the private network. 
@@ -505,7 +488,7 @@ In order to do that you have to:
 substituting `xxx.xxx.xxx.xxx` with the public IP address. This will tell BOSCO to use that address.
 
 
-#### Modifying maximum number of submitted jobs to a resource
+### Modifying maximum number of submitted jobs to a resource
 
 Many clusters limit the number of jobs that can be submitted to the scheduler.  For PBS, we are able to detect this limit.  For SGE and LSF, we are not able to detect this limit.  In the cases where we cannot find the limit, we set the maximum number of jobs very conservatively, to a maximum of 10.  This includes both the number of idle and running jobs to the cluster.
 
@@ -513,12 +496,12 @@ The limit is specified in the condor config file `~/bosco/local.bosco/condor_con
 
     GRIDMANAGER_MAX_SUBMITTED_JOBS_PER_RESOURCE = 10
 
-#### Custom submit properties
+### Custom submit properties
 Bosco has the ability to add custom submit properties to every job submitted to a cluster.
 On the cluster's login node (the BOSCO resource, the host you used at the end of the line when typing the `bosco_cluster --add` command),
 create the file in one of the custom locations:
 
-##### Custom Script Locations
+**Custom Script Locations:**
 
    - *PBS/SLURM* - `~/bosco/glite/bin/pbs_local_submit_attributes.sh`
    - *Condor* - `~/bosco/glite/bin/condor_local_submit_attributes.sh`
@@ -533,12 +516,11 @@ Below is an example `pbs_local_submit_attributes.sh` script which will cause eve
     #!/bin/sh
     echo "#PBS -l nodes=1:ppn=8"
 
-##### Passing parameters to the custom submit properties.
+#### Passing parameters to the custom submit properties.
 
 You may also pass parameters to the custom scripts by adding a special parameter to the Bosco submit script.
 For example, in your Bosco submit script, add:
 
-    ...
     +remote_cerequirements = NumJobs == 100
     ...
     queue
@@ -552,7 +534,7 @@ The custom script can take advantage of these values.  For example, a PBS script
 
 This will set the number of requested cores from PBS to *$NumJobs* specified in the original Bosco Submit file.
 
-##### Flocking to a BOSCO installation
+### Flocking to a BOSCO installation
 
 In some special cases you may desire to flock to your BOSCO installation. If you don't know what I'm talking about, then skip this section.
 
@@ -671,13 +653,12 @@ Then stop and restart BOSCO.
 
 ## Troubleshooting
 
-###### Useful Configuration and Log Files
+### Useful Configuration and Log Files
 
 BOSCO underneath is using Condor. You can find all the Condor log files in `~/bosco/local.HOSTNAME/log`
 
-%STARTSECTION{"BoscoTroubleshootingItems"}%
 
-##### Make sure that you can connect to the BOSCO host
+### Make sure that you can connect to the BOSCO host
 
 If you see errors like:
 
@@ -694,13 +675,13 @@ If you see errors like:
 
 Please try manually to ssh from the BOSCO host to the cluster submit node. The ability to connect is required in order to install BOSCO.
 
-##### Make sure that BOSCO is running
+### Make sure that BOSCO is running
 
 BOSCO may not survive after you log out, for example if the BOSCO node was restarted while you where logged out. 
 When you log back in after sourcing the setup as described in the [setup environment section](#setup-environment-before-using), 
 you should start BOSCO as described in the [BOSCO start section](#starting-bosco), specially if the command `condor_q` is failing.
 
-##### Errors due to leftover files
+### Errors due to leftover files
 
 Bosco files on the submit host are in:
 
@@ -726,7 +707,7 @@ and then re-add all the clusters with:
 
     $ bosco_cluster --add
 
-##### Unable to download and prepare BOSCO for remote installation. 
+### Unable to download and prepare BOSCO for remote installation. 
 
 BOSCO can return this error:
 
@@ -749,14 +730,11 @@ If you see errors similar to the one below while executing `bosco_cluster --add`
 then you are using most likely the generic name of a multi-login cluster and you should use the name of one of the nodes
  as suggested in the [note above](#add-a-cluster-to-bosco). 
 
-%ENDSECTION{"BoscoTroubleshootingItems"}%
 
-
-#### Get Help/Support
+## Get Help/Support
 
 To get assistance you can send an email to bosco-discuss@opensciencegrid.org
 
-%STARTSECTION{"BoscoReferences"}%
 
 ## References 
 
